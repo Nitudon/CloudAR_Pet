@@ -39,6 +39,7 @@ Thumbs.db
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 
+*.apk #android build file
 *.log #log files, for some plugins
 *.pyc #python bytecode cache, for some plugins.
 sysinfo.txt #Unity3D Generated File On Crash Reports
