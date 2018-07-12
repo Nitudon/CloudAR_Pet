@@ -21,7 +21,7 @@ namespace CloudPet.Common.Resource
 
         private static string GetPrefabPath(WorldObjectType type)
         {
-            
+            return "";
         }
     }
 
@@ -33,6 +33,6 @@ namespace CloudPet.Common.Resource
 
     public interface IPrefabLoader
     {
-        T Load<T>() where T : Object;
+        T Load<T>() where T : UnityEngine.Object;
     }
 }
