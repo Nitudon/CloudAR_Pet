@@ -20,12 +20,14 @@
 
 namespace GoogleARCore.Examples.CloudAnchor
 {
+    using System.Net;
     using System.Collections.Generic;
     using GoogleARCore;
     using GoogleARCore.CrossPlatform;
     using GoogleARCore.Examples.Common;
     using UnityEngine;
     using UnityEngine.UI;
+    using UdonLib.Commons;
 
     /// <summary>
     /// Controller managing UI for the Cloud Anchor Example.
@@ -82,7 +84,7 @@ namespace GoogleARCore.Examples.CloudAnchor
         /// </summary>
         public void Start()
         {
-            IPAddressText.text = "My IP Address: " + Network.player.ipAddress;
+            IPAddressText.text = "My IP Address: " + IPv4Helper.GetIP();
         }
 
         /// <summary>
