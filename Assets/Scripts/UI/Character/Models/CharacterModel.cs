@@ -15,6 +15,10 @@ public class CharacterModel : UdonBehaviour, IAsyncInitializable
     [SerializeField]
     private Collider _searchCollider;
 
+    [SerializeField]
+    private Animator _characterAnimator;
+    public Animator CharacterAnimator => _characterAnimator;
+
     private string _characterName;
 
     private IObservable<Collider> _searchObservable;
