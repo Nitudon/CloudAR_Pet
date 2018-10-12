@@ -1,16 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using UdonLib.UI;
+using UnityEngine.EventSystems;
+using UniRx;
 
-public class TapDetector : MonoBehaviour {
+public class TapDetector : UIMono, IPointerDownHandler
+{
+    public Subject<PointerEventData> TapEvent{ get; private set; }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    [SerializeField]
+    private HitRectArea _tapArea;
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(TapEvent == null)
+        {
+            TapEvent = new Subject<PointerEventData>().AddTo(gameObject);
+        }
+
+        TapEvent.OnNext(eventData);
+    }
 }
