@@ -6,22 +6,6 @@ using UniRx;
 
 public class GyroDetector : UdonBehaviour
 {
-    public struct GyroInfo
-    {
-        public readonly Vector3 CenterAxis;
-        public readonly Vector3 CurrentAngle;
-        public readonly Vector3 DeltaAngle;
-        public readonly Vector3 Acceralation;
-
-        public GyroInfo(Vector3 center, Vector3 current, Vector3 delta, Vector3 accelaration)
-        {
-            CenterAxis = center;
-            CurrentAngle = current;
-            DeltaAngle = delta;
-            Acceralation = accelaration;
-        }
-    }
-
     private Vector3 _centerAxis;
     public Vector3 CenterAxis => _centerAxis;
 
@@ -34,15 +18,12 @@ public class GyroDetector : UdonBehaviour
     private ReactiveProperty<GyroInfo> _inputGyroInfo;
     public IReadOnlyReactiveProperty<GyroInfo> InputGyroInfo => _inputGyroInfo;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        Input.gyro.enabled = true;
-    }
-
     protected override void Start()
     {
-        if(_inputGyroInfo == null)
+        base.Start();
+        Input.gyro.enabled = true;
+
+        if (_inputGyroInfo == null)
         {
             _inputGyroInfo = new ReactiveProperty<GyroInfo>();
         }
