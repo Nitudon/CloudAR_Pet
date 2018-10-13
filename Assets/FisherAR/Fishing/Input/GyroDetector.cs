@@ -12,7 +12,7 @@ public class GyroDetector : UdonBehaviour
     private Vector3 _currentAngle;
     public Vector3 CurrentAngle => _currentAngle;
 
-    public Vector3 _deltaAngle;
+    private Vector3 _deltaAngle;
     public Vector3 DeltaAngle => _deltaAngle;
 
     private ReactiveProperty<GyroInfo> _inputGyroInfo;
