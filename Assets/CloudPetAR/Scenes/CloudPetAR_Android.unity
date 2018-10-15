@@ -236,7 +236,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269151151}
+      - m_Target: {fileID: 0}
         m_MethodName: OnResolveRoomClick
         m_Mode: 1
         m_Arguments:
@@ -405,6 +405,48 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53379987}
   m_CullTransparentMesh: 0
+--- !u!1 &62908033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62908034}
+  - component: {fileID: 62908035}
+  m_Layer: 0
+  m_Name: CloudAnhorSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &62908034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62908033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 265534692}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &62908035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 62908033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f2228321ef8294e84526e50ef55d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIController: {fileID: 0}
+  ARCoreRoot: {fileID: 0}
 --- !u!1 &103654087
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +728,7 @@ Transform:
   - {fileID: 2096848115}
   - {fileID: 45378796}
   m_Father: {fileID: 265534692}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &265534691
 GameObject:
@@ -713,7 +755,8 @@ Transform:
   m_LocalPosition: {x: -1.2903218, y: -0.100259244, z: 1.428816}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1269151152}
+  - {fileID: 62908034}
+  - {fileID: 1297255841}
   - {fileID: 258007173}
   m_Father: {fileID: 2066813100}
   m_RootOrder: 0
@@ -1681,65 +1724,44 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 0
---- !u!1 &1269151150
+--- !u!1 &1297255840
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1269151152}
-  - component: {fileID: 1269151151}
-  - component: {fileID: 1269151153}
+  - component: {fileID: 1297255841}
+  - component: {fileID: 1297255842}
   m_Layer: 0
-  m_Name: CloudAnchorController
+  m_Name: PhotonRoomManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1269151151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1269151150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45d327f226af448b5bb427cfa4b6d990, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RoomSharingServer: {fileID: 1269151153}
-  UIController: {fileID: 370638273}
-  ARCoreRoot: {fileID: 258007172}
-  ARCoreAndyAndroidPrefab: {fileID: 1190091649889860, guid: 242a320930b81430ba610f94f9b760c8,
-    type: 2}
-  ARKitRoot: {fileID: 0}
-  ARKitFirstPersonCamera: {fileID: 0}
-  ARKitAndyAndroidPrefab: {fileID: 1190091649889860, guid: 63e9325810cb14b9e8e0590d57d87afb,
-    type: 2}
---- !u!4 &1269151152
+--- !u!4 &1297255841
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1269151150}
+  m_GameObject: {fileID: 1297255840}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6501252, y: 0, z: -0.65012515}
+  m_LocalPosition: {x: 1.0766666, y: -0.7198205, z: -0.23920548}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 265534692}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1269151153
+--- !u!114 &1297255842
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1269151150}
+  m_GameObject: {fileID: 1297255840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed4c3c76fbd614739b4a3ee269a709e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 5404d3ef6e7a30e40aa9b406390acb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1409792970
@@ -2187,7 +2209,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269151151}
+      - m_Target: {fileID: 0}
         m_MethodName: OnEnterHostingModeClick
         m_Mode: 1
         m_Arguments:
@@ -2530,7 +2552,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1269151151}
+      - m_Target: {fileID: 0}
         m_MethodName: OnEnterResolvingModeClick
         m_Mode: 1
         m_Arguments:

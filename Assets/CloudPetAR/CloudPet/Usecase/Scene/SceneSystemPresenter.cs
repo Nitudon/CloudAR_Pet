@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UdonLib.Commons;
 
-public class SceneSystemPresenter : MonoBehaviour {
+public class SceneSystemPresenter : MonoBehaviour 
+{
 
     [SerializeField]
     private MarkerSystemUIPresenter _markerPresenter;
