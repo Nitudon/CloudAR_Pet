@@ -2,14 +2,15 @@
 {
     using GoogleARCore;
     using GoogleARCore.CrossPlatform;
+    using UnityEngine;
     using UniRx;
 
     public class CloudAnchorModel
     {
         public ApplicationMode CloudMode{ get; private set; }
 
-        private ReactiveProperty<Anchor> _placedAnchorRoot = new ReactiveProperty<Anchor>();
-        public IReadOnlyReactiveProperty<Anchor> PlacedAnchorRoot => _placedAnchorRoot;
+        private ReactiveProperty<Component> _placedAnchorRoot = new ReactiveProperty<Component>();
+        public IReadOnlyReactiveProperty<Component> PlacedAnchorRoot => _placedAnchorRoot;
 
         private ReactiveProperty<XPAnchor> _resolvedAnchorInfo = new ReactiveProperty<XPAnchor>();
         public IReadOnlyReactiveProperty<XPAnchor> ResolvedAnchorInfo => _resolvedAnchorInfo;
@@ -19,7 +20,7 @@
             CloudMode = mode;
         }
 
-        public void SetPlacedAnchorRoot(Anchor anchor)
+        public void SetPlacedAnchorRoot(Component anchor)
         {
             _placedAnchorRoot.Value = anchor;
         }

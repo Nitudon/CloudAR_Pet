@@ -127,7 +127,7 @@
         private void HostLastPlacedAnchor()
         {
 #if !UNITY_IOS
-            var anchor = _anchorModel.PlacedAnchorRoot.Value;
+            var anchor = (Anchor)_anchorModel.PlacedAnchorRoot.Value;
 #else
             var anchor = (UnityEngine.XR.iOS.UnityARUserAnchorComponent)_anchorModel.PlacedAnchorRoot.Value;
 #endif
@@ -141,7 +141,7 @@
                     return;
                 }
 
-                _anchorModel.SetAnchorInfo(result.Anchor);
+                _anchorModel.SetPlacedAnchorRoot(result.Anchor);
                 UIController.ShowHostingModeBegin("Cloud anchor was created and saved.");
             });
         }

@@ -12,8 +12,7 @@
         private static readonly string CONNECTING_SETTING = "v1";
 
         private RoomModel _model = new RoomModel();
-
-        private Subject<Unit> _connectDisposable;
+        public RoomModel Model => _model;
 
         public override async Task Initialize()
         {
