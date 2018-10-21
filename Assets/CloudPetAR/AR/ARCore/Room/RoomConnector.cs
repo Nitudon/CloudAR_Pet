@@ -10,6 +10,8 @@
     public class RoomConnector : AsyncInitializableMono
     {
         private static readonly string CONNECTING_SETTING = "v1";
+        private static readonly byte MAX_ROOM_USER = 4;
+        private static readonly string ANCHOR_KEY = "AnchorId";
 
         private RoomModel _model = new RoomModel();
         public RoomModel Model => _model;
@@ -33,18 +35,32 @@
             }
             else
             {
-                await FailureHandlingPhotonTask(PhotoTask.JoinRoom(roomName), _ => _model.SetRoomName(roomName));
+                await FailureHandlingPhotonTask(PhotoTask.JoinRoom(roomName), _ =>
+                {
+                    var roomProperty = PhotonNetwork.room.CustomProperties;
+                    _model.SetRoomName(roomName);
+                    object anchorId;
+                    if(roomProperty.TryGetValue(ANCHOR_KEY, out anchorId))
+                    {
+                        _model.SetAnchorId(anchorId.ToString());
+                    }
+                });
             }
         }
 
-        public async Task CreateRoom(string roomName)
+        public async Task CreateRoom(string roomName, string anchorId)
         {
             if (string.IsNullOrWhiteSpace(roomName))
             {
                 return;
             }
 
-            await FailureHandlingPhotonTask(PhotoTask.JoinRoom(roomName), _ => _model.SetRoomName(roomName));
+            var option = GetCloudRoomTemplate(anchorId);
+            await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
+            {
+                _model.SetRoomName(roomName);
+
+            });
         }
 
         private async Task FailureHandlingPhotonTask(Task<IResult<FailureReason, bool>> task, Action<IResult<FailureReason, bool>> onSuccess = null, Action<IResult<FailureReason, bool>> onFailure = null)
@@ -59,6 +75,23 @@
                 InstantLog.StringLogError($"Photon Network Error : {result.ToFailure.Value}");
                 onFailure?.Invoke(result);
             }
+        }
+
+        private RoomOptions GetCloudRoomTemplate(string anchorId, bool visible = true)
+        {
+            var option = new RoomOptions();
+            option.IsVisible = visible;
+            option.IsOpen = true;
+            option.MaxPlayers = MAX_ROOM_USER;
+            option.CustomRoomProperties 
+                = new ExitGames.Client.Photon.Hashtable() { 
+                    { ANCHOR_KEY, anchorId }
+                };
+            option.CustomRoomPropertiesForLobby = new string[] { 
+                    ANCHOR_KEY 
+                };
+
+            return option;
         }
     }
 }

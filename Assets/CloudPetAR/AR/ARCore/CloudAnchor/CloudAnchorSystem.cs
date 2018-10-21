@@ -124,7 +124,7 @@
         /// <summary>
         /// Hosts the user placed cloud anchor and associates the resulting Id with the current room.
         /// </summary>
-        private void HostLastPlacedAnchor()
+        public void HostLastPlacedAnchor()
         {
 #if !UNITY_IOS
             var anchor = (Anchor)_anchorModel.PlacedAnchorRoot.Value;
@@ -146,7 +146,7 @@
             });
         }
 
-        private void ResolveAnchorFromId(string cloudAnchorId)
+        public void ResolveAnchorFromId(string cloudAnchorId)
         {
             XPSession.ResolveCloudAnchor(cloudAnchorId).ThenAction((System.Action<CloudAnchorResult>)(result =>
             {

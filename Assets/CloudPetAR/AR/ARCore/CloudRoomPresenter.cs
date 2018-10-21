@@ -26,25 +26,10 @@ namespace CloudPet.AR
         {
             _roomConnector
                 .Model
-                .onRoomCreated
-                .Subscribe(_ => BindHost())
+                .AnchorId
+                .Where(_ => PhotonNetwork.isNonMasterClientInRoom)
+                .Subscribe(_cloudAnchorController.ResolveAnchorFromId)
                 .AddTo(gameObject);
-
-            _roomConnector
-                .Model
-                .onRoomJoined
-                .Subscribe()
-                .AddTo(gameObject);
-        }
-
-        private void BindHost()
-        {
-
-        }
-
-        private void BindResolver()
-        {
-            
         }
     }
 }
