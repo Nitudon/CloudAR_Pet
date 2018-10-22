@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UdonLib.Commons;
+using UniRx;
 
-public class PetModel : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+namespace CloudPet.Pet
+{
+    public class PetModel
+    {
+        private ReactiveProperty<PetState> _state = new ReactiveProperty<PetState>(PetState.Idle);
+        public IReadOnlyReactiveProperty<PetState> State => _state;
+    }
 }

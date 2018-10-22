@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UdonLib.Commons;
 
-public class PetController : UdonBehaviour
+namespace CloudPet.Pet
 {
-    [SerializeField]
-    private SimpleAnimation _animationController;
+    public class PetController : UdonBehaviour
+    {
+        [SerializeField]
+        private SimpleAnimation _animationController;
+    }
 }

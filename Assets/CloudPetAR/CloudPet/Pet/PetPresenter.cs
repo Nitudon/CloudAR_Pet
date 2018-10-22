@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UdonLib.Commons;
 
-public class PetPresenter : InitializableMono
+namespace CloudPet.Pet
 {
-    [SerializeField]
-    private PetController _petController;
-
-    public override void Initialize()
+    public class PetPresenter : InitializableMono
     {
-        Bind();
-    }
+        [SerializeField]
+        private PetController _petController;
 
-    private void Bind()
-    {
-        
+        private PetModel _model;
+
+        public override void Initialize()
+        {
+            Bind();
+        }
+
+        private void Bind()
+        {
+
+        }
     }
 }
