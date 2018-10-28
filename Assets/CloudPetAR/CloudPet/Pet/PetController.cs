@@ -9,5 +9,10 @@ namespace CloudPet.Pet
     {
         [SerializeField]
         private SimpleAnimation _animationController;
+
+        public void ActivatePet()
+        {
+            
+        }
     }
 }
