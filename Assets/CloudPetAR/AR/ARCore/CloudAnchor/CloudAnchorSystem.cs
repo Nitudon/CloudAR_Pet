@@ -1,5 +1,6 @@
 ﻿namespace CloudPet.AR
 {
+    using System;
     using System.Collections;
     using GoogleARCore;
     using GoogleARCore.CrossPlatform;
@@ -7,6 +8,7 @@
     using UnityEngine;
     using UdonLib.Commons;
     using UniRx;
+    using UniRx.Triggers;
     using CloudPet.Network;
 
     /// <summary>
@@ -43,11 +45,25 @@
         private const string LOOK_BACK_IP = "127.0.0.1";
         private const float OBJECT_ROTATION_OFFSET = 180.0f;
 
+        private IDisposable _touchDetector;
+
         public override void Initialize()
         {
             ResetStatus();
 
             MainThreadDispatcher.StartUpdateMicroCoroutine(UpdateEnumerator());
+        }
+
+        public void SetActiveTouchDetector(bool active)
+        {
+            if(active)
+            {
+                _touchDetector = this.FixedUpdateAsObservable().Subscribe(_ => TouchPlaceDetect()).AddTo(gameObject);
+            }
+            else
+            {
+                _touchDetector.Dispose();
+            }
         }
 
         public void RayCastAnchor(float x, float y)
@@ -67,6 +83,16 @@
                 _anchorModel.SetPlacedAnchorRoot(m_ARKit.CreateAnchor(hitPose));
             }
 #endif
+        }
+
+        private void TouchPlaceDetect()
+        {
+            Input.multiTouchEnabled = false;
+            if(Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+                RayCastAnchor(touch.position.x, touch.position.y);
+            }
         }
 
         private IEnumerator UpdateEnumerator()

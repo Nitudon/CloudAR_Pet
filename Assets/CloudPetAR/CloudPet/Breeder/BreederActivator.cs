@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CloudPet.Common;
+using CloudPet.AR;
+using UdonLib.Commons;
 
 namespace CloudPet.Pet
 {
-    public class BreederActivateSequence
+    public class BreederActivator : UdonBehaviour
     {
+        private CloudAnchorSystem _anchorSystem;
+
         private Transform _breederRoot;
         private Vector3 _activatePosition;
 
-        public BreederActivateSequence()
-        {
-
-        }
-
         private void ActivateRoot()
         {
-           if ()
-           {
+           _anchorSystem.SetActiveTouchDetector(true);
 
+           if (UserSystemModel.Instance.IsHost)
+           {
+               
+           }
+           else
+           {
+               
            }
         }
 
