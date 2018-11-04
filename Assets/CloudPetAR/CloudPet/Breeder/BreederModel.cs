@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UdonLib.Commons;
-using UniRx;
+﻿using UniRx;
 
 namespace CloudPet.Pet
 {
@@ -16,6 +12,9 @@ namespace CloudPet.Pet
 
         private PetPresenter _petPresenter;
         public PetPresenter PetPresenter => _petPresenter;
+
+        private Subject<ActivateInfo> _onActivatePet = new Subject<ActivateInfo>();
+        public Subject<ActivateInfo> OnActivatePet => _onActivatePet;
 
         public PetInfo OwnPet => _petPresenter.Model.Info;
 

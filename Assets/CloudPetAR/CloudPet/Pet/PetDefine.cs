@@ -1,9 +1,23 @@
-﻿namespace CloudPet.Pet
+﻿using UnityEngine;
+
+namespace CloudPet.Pet
 {
     public struct PetInfo
     {
         public string Name;
         public PetAvater Avater;
+    }
+
+    public struct ActivateInfo
+    {
+        public readonly Vector3 Anchor;
+        public readonly Vector3 Position;
+
+        public ActivateInfo(Vector3 anchor, Vector3 position)
+        {
+            Anchor = anchor;
+            Position = position;
+        }
     }
 
     public struct PetAvater
