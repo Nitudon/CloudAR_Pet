@@ -9,9 +9,11 @@ namespace CloudPet.Network
     public class RoomUIView : UdonBehaviour
     {
         [SerializeField]
-        private Button _connectLobbyButton;
+        private Button _joinRoomButton;
+        public Button JoinRoomButton => _joinRoomButton;
 
         [SerializeField]
-        private Button _joinRoomButton;
+        private Button _createRoomButton;
+        public Button CreateRoomButton => _createRoomButton;
     }
 }

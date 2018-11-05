@@ -1,16 +1,23 @@
-﻿using System.Collections;
+﻿using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UdonLib.Commons;
 
-public class SceneSystemPresenter : MonoBehaviour 
+namespace UdonLib.Commons
 {
-
-    [SerializeField]
-    private MarkerSystemUIPresenter _markerPresenter;
-
-    private async void Start()
+    public class SceneSystemPresenter : UdonBehaviour
     {
-        _markerPresenter.Initialize();
+        [SerializeField]
+        private InitializableMono[] _initializers;
+
+        [SerializeField]
+        private AsyncInitializableMono[] _asyncInitializers;
+
+        protected override async void Start()
+        {
+            base.Start();
+            _initializers.ForEach(x => x.Initialize());
+            await Task.WhenAll(_asyncInitializers.Select(task => task.Initialize()));
+        }
     }
 }

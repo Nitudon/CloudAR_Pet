@@ -12,7 +12,7 @@ namespace CloudPet.Pet
 
         public override void Initialize()
         {
-            _model = new BreederModel();
+            //_model = new BreederModel();
 
             Bind();
         }
@@ -21,7 +21,7 @@ namespace CloudPet.Pet
         {
             _model
                 .OnActivatePet
-                .Subscribe(info => _activator.ActivatePet)
+                .Subscribe(info => _activator.ActivatePet(info.Position))
                 .AddTo(gameObject);
         }
     }

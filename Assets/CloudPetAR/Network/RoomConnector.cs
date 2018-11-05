@@ -27,7 +27,7 @@
             }
         }
 
-        public async Task ConnectRoom(string roomName)
+        public async Task ConnectRoom(string roomName = "")
         {
             if (string.IsNullOrWhiteSpace(roomName))
             {
