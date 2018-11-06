@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UdonLib.Commons;
 using UniRx;
@@ -23,7 +24,7 @@ namespace CloudPet.Network
         private void SetEvent()
         {
             _roomUIView.JoinRoomButton.onClick.AddListener(async () => await _roomConnector.ConnectRoom());
-            //_roomUIView.CreateRoomButton.onClick.AddListener(async () => await _roomConnector.CreateRoom());
+            _roomUIView.CreateRoomButton.onClick.AddListener(async () => await _roomConnector.CreateRoom());
         }
 
         private void Bind()
@@ -39,9 +40,19 @@ namespace CloudPet.Network
                 .AddTo(gameObject);
         }
 
-        private void OpenCreateRoomDialog()
+        private async Task OpenCreateRoomDialog()
         {
+            await _roomConnector.ConnectRoom();
+        }
 
+        private async Task OpenJoinRoomDialog()
+        {
+            await _roomConnector.CreateRoom();
+        }
+
+        private void LoadRoomScene()
+        {
+            SceneManager.Instance.SceneLoad();
         }
     }
 }
