@@ -23,7 +23,7 @@ namespace CloudPet.Network
         private void SetEvent()
         {
             _roomUIView.JoinRoomButton.onClick.AddListener(async () => await _roomConnector.ConnectRoom());
-            _roomUIView.CreateRoomButton.onClick.AddListener(async () => await _roomConnector.CreateRoom());
+            //_roomUIView.CreateRoomButton.onClick.AddListener(async () => await _roomConnector.CreateRoom());
         }
 
         private void Bind()
@@ -37,6 +37,11 @@ namespace CloudPet.Network
                 .onRoomJoined
                 .Subscribe()
                 .AddTo(gameObject);
+        }
+
+        private void OpenCreateRoomDialog()
+        {
+
         }
     }
 }
