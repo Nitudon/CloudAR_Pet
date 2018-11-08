@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UdonLib.Commons;
 using UniRx;
+using CloudPet.Common;
 
 namespace CloudPet.Network
 {
@@ -52,7 +53,7 @@ namespace CloudPet.Network
 
         private void LoadRoomScene()
         {
-            SceneManager.Instance.SceneLoad();
+            SceneManager.Instance.SceneLoad(CommonUtility.GetSceneName(SceneEnum.Room));
         }
     }
 }
