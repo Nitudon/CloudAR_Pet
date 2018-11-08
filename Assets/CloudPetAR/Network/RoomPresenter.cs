@@ -32,12 +32,12 @@ namespace CloudPet.Network
         {
             _roomConnector.Model
                 .onRoomCreated
-                .Subscribe()
+                .Subscribe(_ => LoadRoomScene())
                 .AddTo(gameObject);
 
             _roomConnector.Model
                 .onRoomJoined
-                .Subscribe()
+                .Subscribe(_ => LoadRoomScene())
                 .AddTo(gameObject);
         }
 
