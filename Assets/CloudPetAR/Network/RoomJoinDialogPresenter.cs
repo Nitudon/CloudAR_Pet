@@ -9,7 +9,11 @@ namespace CloudPet.Network
     {
         private void SetEvent()
         {
-
+            _view.DecideButton.onClick.AddListener(() => 
+            {
+                _result = _view.Name;
+                
+            });
         }
     }
 }
