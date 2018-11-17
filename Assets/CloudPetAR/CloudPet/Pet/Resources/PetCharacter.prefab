@@ -737,6 +737,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4491820999992594}
   - component: {fileID: 114220204000866048}
+  - component: {fileID: 114617353852347298}
+  - component: {fileID: 114083132003506422}
+  - component: {fileID: 114591919465659368}
   m_Layer: 0
   m_Name: PetCharacter
   m_TagString: Untagged
@@ -4149,6 +4152,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114083132003506422
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330903629621276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5de9158acc56c5f468ad8855ee912667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationController: {fileID: 114591919465659368}
 --- !u!114 &114088514762723064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4672,6 +4687,30 @@ MonoBehaviour:
   - {fileID: 114791692543002062}
   debug: 1
   threshold: 0.01
+--- !u!114 &114591919465659368
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330903629621276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ee8b5d65250a0a419e73d812e660a96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 95572959997178428}
+--- !u!114 &114617353852347298
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330903629621276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6727439eb0bafa4f832c088d05aaa0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _petController: {fileID: 114083132003506422}
 --- !u!114 &114628097546862854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4854,8 +4893,8 @@ MonoBehaviour:
   - {fileID: 114694705429221474}
   - {fileID: 114403884889292004}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114761727430875108

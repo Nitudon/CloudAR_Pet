@@ -37,6 +37,7 @@ namespace CloudPet.Pet
         public void ActivatePet(Vector3 activatePosition)
         {
             var pet = PetPresenter.Create(_breederRoot);
+            _model.SetPet(pet);
             pet.SetPosition(activatePosition);
         }
     }
