@@ -9,5 +9,10 @@ namespace CloudPet.AR
     {
         [SerializeField]
         private GameObject _detectionMarker;
+
+        public void SetMarkerEnable(bool enable)
+        {
+            _detectionMarker.SetActive(enable);
+        }
     }
 }
