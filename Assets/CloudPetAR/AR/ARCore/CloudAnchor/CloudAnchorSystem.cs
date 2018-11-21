@@ -66,35 +66,6 @@
             }
         }
 
-        public void RayCastAnchor(float x, float y)
-        {
-#if UNITY_ANDROID
-            TrackableHit hit;
-            if (Frame.Raycast(x, y, TrackableHitFlags.PlaneWithinPolygon, out hit))
-            {
-                _anchorModel.SetPlacedAnchorRoot(hit.Trackable.CreateAnchor(hit.Pose));
-            }
-#endif
-
-#if UNITY_IOS
-            Pose hitPose;
-            if (m_ARKit.RaycastPlane(ARKitFirstPersonCamera, touch.position.x, touch.position.y, out hitPose))
-            {
-                _anchorModel.SetPlacedAnchorRoot(m_ARKit.CreateAnchor(hitPose));
-            }
-#endif
-        }
-
-        private void TouchPlaceDetect()
-        {
-            Input.multiTouchEnabled = false;
-            if(Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                RayCastAnchor(touch.position.x, touch.position.y);
-            }
-        }
-
         private IEnumerator UpdateEnumerator()
         {
             UpdateApplicationLifecycle();
