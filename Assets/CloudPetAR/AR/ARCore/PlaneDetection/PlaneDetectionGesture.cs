@@ -7,7 +7,10 @@ using GoogleARCore;
 
 namespace CloudPet.AR
 {
-    public class PlaneDetectionPresenter : InitializableMono, IDisposable
+    /// <summary>
+    /// 平面検出タッチハンドラ
+    /// </summary>
+    public class PlaneDetectionGesture : InitializableMono, IDisposable
     {
         [SerializeField]
         private PlaneDetectionView view;
@@ -15,11 +18,14 @@ namespace CloudPet.AR
         private ReactiveProperty<Pose> _detectedPose;
         public IReadOnlyReactiveProperty<Pose> DetectedPose => _detectedPose;
 
+        public Subject<Unit> OnTouched { get; private set; }
+
         private IDisposable _touchDetector;
 
         public override void Initialize()
         {
             Input.multiTouchEnabled = false;
+            OnTouched = new Subject<Unit>();
             _detectedPose = new ReactiveProperty<Pose>();
         }
 
@@ -27,7 +33,7 @@ namespace CloudPet.AR
         {
             if(active)
             {
-                _touchDetector = MainThreadDispatcher.StartFixedUpdateMicroCoroutine(TouchPlaceDetectEnumerator());
+                _touchDetector = Observable.EveryFixedUpdate().Subscribe(_ => RayCastPose()).AddTo(gameObject);
             }
             else
             {
@@ -38,25 +44,29 @@ namespace CloudPet.AR
         public void Dispose()
         {
             _detectedPose.Dispose();
+            OnTouched.Dispose();
             _touchDetector.Dispose();
         }
 
-        private IEnumerator TouchPlaceDetectEnumerator()
+        public void OnDestroy()
         {
-            if (Input.touchCount > 0)
-            {
-                Touch touch = Input.GetTouch(0);
-                RayCastPose(touch.position.x, touch.position.y);
-            }
-
-            yield return null;
+            Dispose();
         }
 
-        private void RayCastPose(float x, float y)
+        private void RayCastPose()
         {
+
+            if (Input.touchCount <= 0)
+            {
+                return;
+            }
+
+            Touch touch = Input.GetTouch(0);
+            OnTouched.OnNext(Unit.Default);
+
 #if UNITY_ANDROID
             TrackableHit hit;
-            if (Frame.Raycast(x, y, TrackableHitFlags.PlaneWithinPolygon, out hit))
+            if (Frame.Raycast(touch.position.x, touch.position.y, TrackableHitFlags.PlaneWithinPolygon, out hit))
             {
                 _detectedPose.Value = hit.Pose;
             }

@@ -8,8 +8,6 @@
     using UnityEngine;
     using UdonLib.Commons;
     using UniRx;
-    using UniRx.Triggers;
-    using CloudPet.Network;
 
     /// <summary>
     /// Controller for the Cloud Anchor Example.
@@ -45,25 +43,11 @@
         private const string LOOK_BACK_IP = "127.0.0.1";
         private const float OBJECT_ROTATION_OFFSET = 180.0f;
 
-        private IDisposable _touchDetector;
-
         public override void Initialize()
         {
             ResetStatus();
 
             MainThreadDispatcher.StartUpdateMicroCoroutine(UpdateEnumerator());
-        }
-
-        public void SetActiveTouchDetector(bool active)
-        {
-            if(active)
-            {
-                _touchDetector = this.FixedUpdateAsObservable().Subscribe(_ => TouchPlaceDetect()).AddTo(gameObject);
-            }
-            else
-            {
-                _touchDetector.Dispose();
-            }
         }
 
         private IEnumerator UpdateEnumerator()

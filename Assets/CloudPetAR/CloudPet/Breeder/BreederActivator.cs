@@ -22,8 +22,6 @@ namespace CloudPet.Pet
 
         public void ActivateRoot(Vector3 activatePosition)
         {
-           _anchorSystem.SetActiveTouchDetector(true);
-        
            if (UserSystemModel.Instance.IsHost)
            {
                _model.OnActivatePet.OnNext(new ActivateInfo(_anchorSystem.AnchorModel.PlacedAnchorRoot.Value.transform.position, activatePosition));
