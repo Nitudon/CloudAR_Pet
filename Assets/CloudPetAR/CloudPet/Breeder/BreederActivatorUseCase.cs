@@ -7,7 +7,10 @@ using UdonLib.Commons;
 
 namespace CloudPet.Pet
 {
-    public class BreederActivator
+    /// <summary>
+    /// ブリーダーのペット管理周りのユースケース
+    /// </summary>
+    public class BreederActivatorUseCase
     {
         private CloudAnchorSystem _anchorSystem;
 
@@ -15,7 +18,7 @@ namespace CloudPet.Pet
 
         private Transform _breederRoot;
 
-        public BreederActivator(BreederModel model)
+        public BreederActivatorUseCase(BreederModel model)
         {
             _model = model;
         }

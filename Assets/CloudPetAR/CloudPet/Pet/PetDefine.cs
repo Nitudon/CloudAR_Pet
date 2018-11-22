@@ -10,13 +10,17 @@ namespace CloudPet.Pet
 
     public struct ActivateInfo
     {
+        public readonly bool Activatable;
         public readonly Vector3 Anchor;
         public readonly Vector3 Position;
+        public readonly Quaternion Rotation;
 
-        public ActivateInfo(Vector3 anchor, Vector3 position)
+        public ActivateInfo(bool activatable, Vector3 anchor, Vector3 position, Quaternion rotation)
         {
+            Activatable = activatable;
             Anchor = anchor;
             Position = position;
+            Rotation = rotation;
         }
     }
 

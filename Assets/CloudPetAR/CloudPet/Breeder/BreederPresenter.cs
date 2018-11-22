@@ -1,18 +1,33 @@
 ﻿using UniRx;
 using UdonLib.Commons;
+using UnityEngine;
+using CloudPet.AR;
 
 namespace CloudPet.Pet
 {
+    /// <summary>
+    /// ブリーダーの各ロジックのバインド
+    /// </summary>
     public class BreederPresenter : InitializableMono
     {
+        [SerializeField]
+        private PlaneDetectionGesture _planeDetectionGesture;
+
+        [SerializeField]
+        private CloudAnchorSystem _cloudAnchorSystem;
+        
         private BreederModel _model;
         public BreederModel Model => _model;
 
-        private BreederActivator _activator;
+        private BreederActivatorUseCase _activatorUseCase;
+        private BreederARUseCase _arUseCase;
 
         public override void Initialize()
         {
             //_model = new BreederModel();
+
+            _activatorUseCase = new BreederActivatorUseCase(_model);
+            _arUseCase = new BreederARUseCase(_planeDetectionGesture, _cloudAnchorSystem.AnchorModel);
 
             Bind();
         }
@@ -21,7 +36,7 @@ namespace CloudPet.Pet
         {
             _model
                 .OnActivatePet
-                .Subscribe(info => _activator.ActivatePet(info.Position))
+                .Subscribe(info => _activatorUseCase.ActivatePet(info.Position))
                 .AddTo(gameObject);
         }
     }

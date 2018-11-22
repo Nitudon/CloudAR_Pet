@@ -1,23 +1,42 @@
 ﻿using UniRx;
 using UdonLib.Commons;
 using CloudPet.AR;
+using UnityEngine;
 
 namespace CloudPet.Pet
 {
-    public class BreederARUseCase : InitializableMono
+    /// <summary>
+    /// ブリーダーのAR周りのユースケース
+    /// </summary>
+    public class BreederARUseCase
     {
         private PlaneDetectionGesture _planeDetectionGesture;
 
-        public override void Initialize()
-        {
-            //_model = new BreederModel();
+        private CloudAnchorModel _anchorModel;
 
-            Bind();
+        public BreederARUseCase(PlaneDetectionGesture planeDetectionGesture, CloudAnchorModel cloudAnchorModel)
+        {
+            _planeDetectionGesture = planeDetectionGesture;
+            _anchorModel = cloudAnchorModel;
+
+            _planeDetectionGesture.Initialize();
         }
 
-        private void Bind()
+        public void SelectPlaneEnable(bool active)
         {
+            _planeDetectionGesture.SetDetectionActive(active);
+        }
 
+        public IReadOnlyReactiveProperty<ActivateInfo> ActivateInfoEveryChanged
+        {
+            get
+            {
+                return _planeDetectionGesture
+                        .DetectedPose
+                        .Where(_ => !_planeDetectionGesture.IsDestroyed)
+                        .Select(info => new ActivateInfo(info.Item1, _anchorModel.CurrentAnchorPosition, info.Item2.position, info.Item2.rotation))
+                        .ToReactiveProperty();
+            }
         }
     }
 }

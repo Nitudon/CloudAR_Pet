@@ -15,6 +15,8 @@
         private ReactiveProperty<XPAnchor> _resolvedAnchorInfo = new ReactiveProperty<XPAnchor>();
         public IReadOnlyReactiveProperty<XPAnchor> ResolvedAnchorInfo => _resolvedAnchorInfo;
 
+        public Vector3 CurrentAnchorPosition;
+
         public void SetMode(ApplicationMode mode)
         {
             CloudMode = mode;
