@@ -29,7 +29,7 @@ namespace CloudPet.Pet
         {
             //_model = new BreederModel();
 
-            _activatorUseCase = new BreederActivatorUseCase(_model);
+            _activatorUseCase = new BreederActivatorUseCase(_model, _cloudAnchorSystem);
             _arUseCase = new BreederARUseCase(_planeDetectionGesture, _cloudAnchorSystem.AnchorModel);
 
             Bind();

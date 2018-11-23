@@ -34,7 +34,7 @@ namespace CloudPet.Pet
                 return _planeDetectionGesture
                         .DetectedPose
                         .Where(_ => !_planeDetectionGesture.IsDestroyed)
-                        .Select(info => new ActivateInfo(info.Item1, _anchorModel.CurrentAnchorPosition, info.Item2.position, info.Item2.rotation))
+                        .Select(info => new ActivateInfo(info.Item1, _anchorModel.CurrentAnchor, info.Item2.position, info.Item2.rotation))
                         .ToReactiveProperty();
             }
         }

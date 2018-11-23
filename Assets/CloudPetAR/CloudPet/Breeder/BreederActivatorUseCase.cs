@@ -26,7 +26,8 @@ namespace CloudPet.Pet
         {
             var pet = PetPresenter.Create(petRoot);
             _model.SetPet(pet);
-            pet.SetPosition(activatePosition);
+            
+            pet.SetPosition(info.AnchoredWorldPosition);
         }
     }
 }
