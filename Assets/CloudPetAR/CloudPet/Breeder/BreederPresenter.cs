@@ -11,6 +11,9 @@ namespace CloudPet.Pet
     public class BreederPresenter : InitializableMono
     {
         [SerializeField]
+        private BreederUIView _view;
+
+        [SerializeField]
         private PlaneDetectionGesture _planeDetectionGesture;
 
         [SerializeField]
@@ -18,7 +21,7 @@ namespace CloudPet.Pet
         
         private BreederModel _model;
         public BreederModel Model => _model;
-
+        
         private BreederActivatorUseCase _activatorUseCase;
         private BreederARUseCase _arUseCase;
 

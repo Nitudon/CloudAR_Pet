@@ -16,28 +16,15 @@ namespace CloudPet.Pet
 
         private BreederModel _model;
 
-        private Transform _breederRoot;
-
-        public BreederActivatorUseCase(BreederModel model)
+        public BreederActivatorUseCase(BreederModel model, CloudAnchorSystem cloudAnchorSystem)
         {
             _model = model;
+            _anchorSystem = cloudAnchorSystem;
         }
 
-        public void ActivateRoot(Vector3 activatePosition)
+        public void ActivatePet(Transform petRoot, ActivateInfo info)
         {
-           if (UserSystemModel.Instance.IsHost)
-           {
-               _model.OnActivatePet.OnNext(new ActivateInfo(_anchorSystem.AnchorModel.PlacedAnchorRoot.Value.transform.position, activatePosition));
-           }
-           else
-           {
-               _model.OnActivatePet.OnNext(new ActivateInfo(_anchorSystem.AnchorModel.ResolvedAnchorInfo.Value.transform.position, activatePosition));
-           }
-        }
-
-        public void ActivatePet(Vector3 activatePosition)
-        {
-            var pet = PetPresenter.Create(_breederRoot);
+            var pet = PetPresenter.Create(petRoot);
             _model.SetPet(pet);
             pet.SetPosition(activatePosition);
         }
