@@ -16,9 +16,6 @@ namespace FisherAR.InGame
         [SerializeField]
         private GyroDetector _gyroDetector;
 
-        [SerializeField]
-        private TapDetector _tapDetector;
-
         public override void Initialize()
         {
             _model = new RodModel();
@@ -31,12 +28,6 @@ namespace FisherAR.InGame
             _gyroDetector
                 .InputGyroInfo
                 .Subscribe(info => _rodController.SetLocalEulerAngles(info.DeltaAngle.Round()))
-                .AddTo(gameObject)
-                .AddTo(_rodController);
-
-            _tapDetector
-                .TapEvent
-                .Subscribe(_ => _rodController.CastRod())
                 .AddTo(gameObject)
                 .AddTo(_rodController);
         }
