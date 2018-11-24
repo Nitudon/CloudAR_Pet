@@ -74,15 +74,15 @@ namespace CloudPet.Pet
         {
             _breederUIController.AnchorSystemUIView.AnchorSettingButton.onClickedCallback += () =>
             {
-                if(_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting && _cloudAnchorSystem.AnchorModel.IsTrackable.Value)
+                if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting && _cloudAnchorSystem.AnchorModel.IsTrackable.Value)
                 {
                     _cloudAnchorSystem.HostLastPlacedAnchor();
                 }
-                else if(_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Resolving)
+                else if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Resolving)
                 {
-                    _cloudAnchorSystem.ResolveAnchorFromId();
+                    
                 }
-            }
+            };
         }
 
         private void OnDestroy()

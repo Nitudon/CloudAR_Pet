@@ -10,7 +10,7 @@ namespace CloudPet.Pet
         private string _name;
         public string Name => _name;
 
-        private ReactiveProperty<UIMode> _mode = new ReactiveProperty<UIMode>();;
+        private ReactiveProperty<UIMode> _mode = new ReactiveProperty<UIMode>();
         public IReadOnlyReactiveProperty<UIMode> Mode => _mode;
 
         private PetPresenter _petPresenter;
