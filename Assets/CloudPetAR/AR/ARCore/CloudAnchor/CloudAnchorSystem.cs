@@ -56,7 +56,7 @@
             yield return null;
         }
 
-        public void OnEnterHostingModeClick()
+        public void SetHostMode()
         {
             if (_anchorModel.CloudMode == ApplicationMode.Hosting)
             {
@@ -73,7 +73,7 @@
         /// Handles a user intent to enter a mode where they can input an anchor to be resolved or exit this mode if
         /// already in it.
         /// </summary>
-        public void OnEnterResolvingModeClick()
+        public void SetResolverMode()
         {
             if (_anchorModel.CloudMode == ApplicationMode.Resolving)
             {
@@ -102,6 +102,11 @@
             // Resolve Anchor 処理
         }
 
+        public void PlaceAnchor()
+        {
+
+        }
+
         /// <summary>
         /// Hosts the user placed cloud anchor and associates the resulting Id with the current room.
         /// </summary>
@@ -122,7 +127,7 @@
                     return;
                 }
 
-                _anchorModel.SetPlacedAnchorRoot(result.Anchor);
+                _anchorModel.SetPlacedAnchorRoot(true, result.Anchor);
                 UIController.ShowHostingModeBegin("Cloud anchor was created and saved.");
             });
         }
@@ -137,7 +142,7 @@
                     return;
                 }
 
-                _anchorModel.SetAnchorInfo(result.Anchor);
+                _anchorModel.SetResolvedAnchorInfo(result.Anchor);
                 UIController.ShowResolvingModeSuccess();
             }));
         }
@@ -151,13 +156,13 @@
                 Destroy(_anchorModel.PlacedAnchorRoot.Value.gameObject);
             }
 
-            _anchorModel.SetPlacedAnchorRoot(null);
+            _anchorModel.SetPlacedAnchorRoot(false, null);
             if (_anchorModel.ResolvedAnchorInfo.Value != null)
             {
                 Destroy(_anchorModel.ResolvedAnchorInfo.Value.gameObject);
             }
 
-            _anchorModel.SetAnchorInfo(null);
+            _anchorModel.SetResolvedAnchorInfo(null);
             UIController.ShowReadyMode();
         }
 

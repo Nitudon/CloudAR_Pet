@@ -9,6 +9,9 @@
     {
         public ApplicationMode CloudMode{ get; private set; }
 
+        private ReactiveProperty<bool> _isTrackable = new ReactiveProperty<bool>();
+        public IReadOnlyReactiveProperty<bool> IsTrackable => _isTrackable;
+
         private ReactiveProperty<Component> _placedAnchorRoot = new ReactiveProperty<Component>();
         public IReadOnlyReactiveProperty<Component> PlacedAnchorRoot => _placedAnchorRoot;
 
@@ -47,8 +50,9 @@
             CloudMode = mode;
         }
 
-        public void SetPlacedAnchorRoot(Component anchor)
+        public void SetPlacedAnchorRoot(bool trackable, Component anchor)
         {
+            _isTrackable.Value = trackable;
             _placedAnchorRoot.Value = anchor;
         }
 

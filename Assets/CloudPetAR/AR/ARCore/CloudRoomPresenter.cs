@@ -19,6 +19,15 @@ namespace CloudPet.AR
             await _roomConnector.Initialize();
             _cloudAnchorController.Initialize();
 
+            if(PhotonNetwork.isNonMasterClientInRoom)
+            {
+                _cloudAnchorController.SetResolverMode();
+            }
+            else
+            {
+                _cloudAnchorController.SetHostMode();
+            }
+
             BindRoomConnection();
         }
 

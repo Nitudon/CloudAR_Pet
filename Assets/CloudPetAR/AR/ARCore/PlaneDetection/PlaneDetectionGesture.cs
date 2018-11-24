@@ -17,8 +17,8 @@ namespace CloudPet.AR
 
         private static readonly Vector2 DETECT_RAY_CENTER = Vector2.zero;
 
-        private ReactiveProperty<Tuple<bool, Pose>> _detectedPose;
-        public IReadOnlyReactiveProperty<Tuple<bool, Pose>> DetectedPose => _detectedPose;
+        private ReactiveProperty<Tuple<bool, TrackableHit>> _detectedPose;
+        public IReadOnlyReactiveProperty<Tuple<bool, TrackableHit>> DetectedPose => _detectedPose;
 
         public Subject<Unit> OnTouched { get; private set; }
 
@@ -28,7 +28,7 @@ namespace CloudPet.AR
         {
             Input.multiTouchEnabled = false;
             OnTouched = new Subject<Unit>();
-            _detectedPose = new ReactiveProperty<Tuple<bool, Pose>>();
+            _detectedPose = new ReactiveProperty<Tuple<bool, TrackableHit>>();
         }
 
         public void SetDetectionActive(bool active)
@@ -55,11 +55,11 @@ namespace CloudPet.AR
             Dispose();
         }
 
-        private Tuple<bool, Pose> TouchPlaneDetect()
+        private Tuple<bool, TrackableHit> TouchPlaneDetect()
         {
             if (Input.touchCount <= 0)
             {
-                return default(Tuple<bool, Pose>);
+                return default(Tuple<bool, TrackableHit>);
             }
 
             Touch touch = Input.GetTouch(0);
@@ -68,14 +68,14 @@ namespace CloudPet.AR
             return RayCastPose(touch.position);
         }
 
-        private Tuple<bool, Pose> RayCastPose(Vector2 position)
+        private Tuple<bool, TrackableHit> RayCastPose(Vector2 position)
         {
 
 #if UNITY_ANDROID
             TrackableHit hit;
             bool isHit = Frame.Raycast(position.x, position.y, TrackableHitFlags.PlaneWithinPolygon, out hit);
 
-            return new Tuple<bool, Pose>(isHit, hit.Pose);
+            return new Tuple<bool, TrackableHit>(isHit, hit);
 #endif
 
 #if UNITY_IOS

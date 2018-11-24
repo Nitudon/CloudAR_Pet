@@ -1,7 +1,10 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UdonLib.Commons;
 using CloudPet.AR;
 using UnityEngine;
+using GoogleARCore;
+using GoogleARCore.CrossPlatform;
 
 namespace CloudPet.Pet
 {
@@ -27,6 +30,18 @@ namespace CloudPet.Pet
             _planeDetectionGesture.SetDetectionActive(active);
         }
 
+        public IReadOnlyReactiveProperty<Tuple<bool, Anchor>> TrackingHitInfoEveryChanged
+        {
+            get
+            {
+                return _planeDetectionGesture
+                        .DetectedPose
+                        .Where(_ => !_planeDetectionGesture.IsDestroyed)
+                        .Select(info => new Tuple<bool, Anchor>(info.Item1, info.Item2.Trackable.CreateAnchor(info.Item2.Pose)))
+                        .ToReactiveProperty();
+            }
+        }
+
         public IReadOnlyReactiveProperty<ActivateInfo> ActivateInfoEveryChanged
         {
             get
@@ -34,7 +49,7 @@ namespace CloudPet.Pet
                 return _planeDetectionGesture
                         .DetectedPose
                         .Where(_ => !_planeDetectionGesture.IsDestroyed)
-                        .Select(info => new ActivateInfo(info.Item1, _anchorModel.CurrentAnchor, info.Item2.position, info.Item2.rotation))
+                        .Select(info => new ActivateInfo(info.Item1, _anchorModel.CurrentAnchor, info.Item2.Pose.position, info.Item2.Pose.rotation))
                         .ToReactiveProperty();
             }
         }
