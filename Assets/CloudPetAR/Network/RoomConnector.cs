@@ -13,9 +13,6 @@
         private static readonly byte MAX_ROOM_USER = 4;
         private static readonly string ANCHOR_KEY = "AnchorId";
 
-        private RoomModel _model = new RoomModel();
-        public RoomModel Model => _model;
-
         public override async Task Initialize()
         {
             PhotonNetwork.autoJoinLobby = true;
@@ -31,18 +28,18 @@
         {
             if (string.IsNullOrWhiteSpace(roomName))
             {
-                await FailureHandlingPhotonTask(PhotoTask.JoinRandomRoom(), _ => _model.SetRoomName(PhotonNetwork.room.Name));
+                await FailureHandlingPhotonTask(PhotoTask.JoinRandomRoom(), _ => RoomManager.Instance.Model.SetRoomName(PhotonNetwork.room.Name));
             }
             else
             {
                 await FailureHandlingPhotonTask(PhotoTask.JoinRoom(roomName), _ =>
                 {
                     var roomProperty = PhotonNetwork.room.CustomProperties;
-                    _model.SetRoomName(roomName);
+                    RoomManager.Instance.Model.SetRoomName(roomName);
                     object anchorId;
                     if(roomProperty.TryGetValue(ANCHOR_KEY, out anchorId))
                     {
-                        _model.SetAnchorId(anchorId.ToString());
+                        RoomManager.Instance.Model.SetAnchorId(anchorId.ToString());
                     }
                 });
             }
@@ -58,7 +55,7 @@
             var option = GetCloudRoomTemplate(anchorId);
             await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
             {
-                _model.SetRoomName(roomName);
+                RoomManager.Instance.Model.SetRoomName(roomName);
 
             });
         }
