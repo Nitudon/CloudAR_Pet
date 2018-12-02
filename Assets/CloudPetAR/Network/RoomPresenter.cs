@@ -24,18 +24,18 @@ namespace CloudPet.Network
 
         private void SetEvent()
         {
-            _roomUIView.JoinRoomButton.onClick.AddListener(async () => await _roomConnector.ConnectRoom());
-            //_roomUIView.CreateRoomButton.onClick.AddListener(async () => await _roomConnector.CreateRoom());
+            _roomUIView.JoinRoomButton.onClickedCallback += async () => await _roomConnector.ConnectRoom();
+            _roomUIView.CreateRoomButton.onClickedCallback += async () => await _roomConnector.CreateRoom();
         }
 
         private void Bind()
         {
-            _roomConnector.Model
+            RoomManager.Instance.Model
                 .onRoomCreated
                 .Subscribe(_ => LoadRoomScene())
                 .AddTo(gameObject);
 
-            _roomConnector.Model
+            RoomManager.Instance.Model
                 .onRoomJoined
                 .Subscribe(_ => LoadRoomScene())
                 .AddTo(gameObject);
@@ -43,6 +43,7 @@ namespace CloudPet.Network
 
         private async Task OpenCreateRoomDialog()
         {
+            RoomDialogPresenter dialog = RoomDialogPresenter.OpenDialog
             await _roomConnector.ConnectRoom();
         }
 
