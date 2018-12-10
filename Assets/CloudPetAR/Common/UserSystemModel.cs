@@ -12,9 +12,9 @@ namespace CloudPet.Common
 
         public bool IsHost => !PhotonNetwork.isNonMasterClientInRoom;
 
-        protected override void Init()
+        public override void Initialize()
         {
-            base.Init();
+            base.Initialize();
             DontDestroyOnLoad(this);
         }
 

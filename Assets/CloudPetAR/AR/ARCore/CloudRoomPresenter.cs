@@ -33,7 +33,7 @@ namespace CloudPet.AR
 
         private void BindRoomConnection()
         {
-            _roomConnector
+            RoomManager.Instance
                 .Model
                 .AnchorId
                 .Where(_ => PhotonNetwork.isNonMasterClientInRoom)
