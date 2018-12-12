@@ -43,7 +43,7 @@ namespace CloudPet.Network
 
         private async Task OpenCreateRoomDialog()
         {
-            //RoomDialogPresenter dialog = RoomDialogPresenter.OpenDialog
+            RoomDialogPresenter dialog = RoomDialogPresenter.OpenDialog
             await _roomConnector.ConnectRoom();
         }
 

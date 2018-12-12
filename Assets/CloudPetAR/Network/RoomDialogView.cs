@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UdonLib.UI;
+using CloudPet.UI;
 
 namespace CloudPet.Network
 {
-    public class RoomDialogView : DialogViewBase
+    public class RoomDialogView : CommonDialogView
     {
         [SerializeField]
         private InputField _nameField;

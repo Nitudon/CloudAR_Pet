@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UdonLib.UI;
+using CloudPet.UI;
 
 namespace CloudPet.Network
 {
     [RequireComponent(typeof(RoomDialogView))]
-    public class RoomDialogPresenter : DialogPresenterBase<RoomDialogView, string>
+    public class RoomDialogPresenter : CommonDialogPresenter<RoomDialogView, string>
     {
         public override void Initialize()
         {
