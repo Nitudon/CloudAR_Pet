@@ -25,7 +25,7 @@ namespace CloudPet.Network
         private void SetEvent()
         {
             _roomUIView.JoinRoomButton.onClickedCallback += async () => await _roomConnector.ConnectRoom();
-            _roomUIView.CreateRoomButton.onClickedCallback += async () => await _roomConnector.CreateRoom();
+            //_roomUIView.CreateRoomButton.onClickedCallback += async () => await _roomConnector.CreateRoom();
         }
 
         private void Bind()
@@ -43,7 +43,7 @@ namespace CloudPet.Network
 
         private async Task OpenCreateRoomDialog()
         {
-            RoomDialogPresenter dialog = RoomDialogPresenter.OpenDialog
+            //RoomDialogPresenter dialog = RoomDialogPresenter.CreateDialog()
             await _roomConnector.ConnectRoom();
         }
 
