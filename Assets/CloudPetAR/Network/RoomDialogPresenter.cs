@@ -6,7 +6,7 @@ using CloudPet.UI;
 namespace CloudPet.Network
 {
     [RequireComponent(typeof(RoomDialogView))]
-    public class RoomDialogPresenter : CommonDialogPresenter<RoomDialogView, string>
+    public class RoomDialogPresenter : CommonDialogPresenter< RoomDialogView, string>
     {
         public override void Initialize()
         {
