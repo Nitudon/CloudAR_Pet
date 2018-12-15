@@ -3,38 +3,35 @@ using UnityEngine;
 using UdonLib.Commons;
 using UdonLib.Commons.Extensions;
 
-public static class PrefabLoader
+namespace CloudPet.Commons
 {
-    public static T LoadPrefab<T>(DialogType type) where T : UnityEngine.Object
+    public static class PrefabLoader
     {
-        string path = GetDialogPrefabPath(type);
-        if (path.IsNullOrWhiteSpace())
+        public static T LoadPrefab<T>(DialogType type) where T : UnityEngine.Object
         {
-            Debug.LogError($"Missing Dialog Prefab : Type Of {typeof(T)}");
-            return default(T);
+            string path = GetDialogPrefabPath(type);
+            if (path.IsNullOrWhiteSpace())
+            {
+                Debug.LogError($"Missing Dialog Prefab : Type Of {typeof(T)}");
+                return default(T);
+            }
+            return Resources.Load<T>(GetDialogPrefabPath(type));
         }
-        return Resources.Load<T>(GetDialogPrefabPath(type));
-    }
 
-    #region Dialog
+        #region Dialog
 
-    public enum DialogType
-    {
-        // 部屋名入力ダイアログ
-        RoomDialog,
-    }
-
-    private static string GetDialogPrefabPath(DialogType type)
-    {
-        switch (type)
+        private static string GetDialogPrefabPath(DialogType type)
         {
-            case DialogType.RoomDialog:
-                return "RoomDialog";
+            switch (type)
+            {
+                case DialogType.RoomDialog:
+                    return "RoomDialog";
 
-            default:
-                return string.Empty;
+                default:
+                    return string.Empty;
+            }
         }
-    }
 
-    #endregion
+        #endregion
+    }
 }
