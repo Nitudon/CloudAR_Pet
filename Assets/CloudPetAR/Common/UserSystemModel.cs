@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UdonLib.Commons;
 
-namespace CloudPet.Common
+namespace CloudPet.Commons
 {
     public class UserSystemModel : UdonBehaviourSingleton<UserSystemModel>
     {

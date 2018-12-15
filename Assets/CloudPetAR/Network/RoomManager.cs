@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UdonLib.Commons;
-
+﻿using UdonLib.Commons;
 
 namespace CloudPet.Network
 {
@@ -23,6 +17,21 @@ namespace CloudPet.Network
             base.Initialize();
 
             _model = new RoomModel();
+        }
+
+        public void SetRoomAnchorId(string anchorId)
+        {
+            if(PhotonNetwork.isNonMasterClientInRoom)
+            {
+                return;
+            }
+
+            _model.SetAnchorId(anchorId);
+
+            var option = new ExitGames.Client.Photon.Hashtable() {
+                    { RoomDefine.ANCHOR_KEY, anchorId }
+                };
+            PhotonNetwork.room.SetCustomProperties(option);
         }
     }
 }

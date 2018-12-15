@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using UdonLib.UI;
 using CloudPet.UI;
+using UniRx.Async;
 
 namespace CloudPet.Network
 {
     [RequireComponent(typeof(RoomDialogView))]
-    public class RoomDialogPresenter : CommonDialogPresenter< RoomDialogView, string>
+    public class RoomDialogPresenter : CommonDialogPresenter<RoomDialogView, string>
     {
-        public override void Initialize()
+        public override async UniTask Initialize()
         {
-            base.Initialize();
+            await base.Initialize();
             SetEvent();
         }
 

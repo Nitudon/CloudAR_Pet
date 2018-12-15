@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UdonLib.Commons;
 using UniRx;
-using CloudPet.Common;
+using UniRx.Async;
+using CloudPet.Commons;
+using CloudPet.UI;
 
 namespace CloudPet.Network
 {
@@ -24,8 +23,8 @@ namespace CloudPet.Network
 
         private void SetEvent()
         {
-            _roomUIView.JoinRoomButton.onClickedCallback += async () => await _roomConnector.ConnectRoom();
-            //_roomUIView.CreateRoomButton.onClickedCallback += async () => await _roomConnector.CreateRoom();
+            _roomUIView.JoinRoomButton.onClickedCallback += async () => await OpenJoinRoomDialog();
+            _roomUIView.CreateRoomButton.onClickedCallback += async () => await OpenCreateRoomDialog();
         }
 
         private void Bind()
@@ -41,16 +40,16 @@ namespace CloudPet.Network
                 .AddTo(gameObject);
         }
 
-        private async Task OpenCreateRoomDialog()
+        private async UniTask OpenCreateRoomDialog()
         {
-            RoomDialogPresenter dialog = RoomDialogPresenter.CreateDialog(UICanvasManager.Instance.DialogRoot, PrefabLoader.LoadPrefab<RoomDialogPresenter>(PrefabLoader.DialogType.RoomDialog));
-            await dialog.Wait
-            await _roomConnector.ConnectRoom();
+            var dialog = await DialogUtility.CreateDialog<RoomDialogPresenter>(DialogType.RoomDialog);
+            await _roomConnector.CreateRoom(dialog.Result);
         }
 
-        private async Task OpenJoinRoomDialog()
+        private async UniTask OpenJoinRoomDialog()
         {
-            //await _roomConnector.CreateRoom();
+            var dialog = await DialogUtility.CreateDialog<RoomDialogPresenter>(DialogType.RoomDialog);
+            await _roomConnector.ConnectRoom(dialog.Result);
         }
 
         private void LoadRoomScene()
