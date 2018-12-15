@@ -1,4 +1,4 @@
-﻿namespace CloudPet.Common
+﻿namespace CloudPet.Commons
 {
     public enum SceneEnum
     {

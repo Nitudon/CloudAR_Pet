@@ -1,7 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UdonLib.UI;
 using DG.Tweening;
+using UniRx.Async;
+using UdonLib.Async;
 
 namespace CloudPet.UI
 {
@@ -9,17 +10,17 @@ namespace CloudPet.UI
     {
         private const float ANIMATION_DURATION = 0.5f;
 
-        public override void OpenDialogAnimation(Action onComplete = null)
+        public override async UniTask OpenDialogAnimation()
         {
             RectTransform.DOKill();
             RectTransform.localScale = Vector3.zero;
-            RectTransform.DOScale(1f, ANIMATION_DURATION).OnComplete(() => onComplete?.Invoke());
+            await RectTransform.DOScale(1f, ANIMATION_DURATION);
         }
 
-        public override void CloseDialogAnimation(Action onComplete = null)
+        public override async UniTask CloseDialogAnimation()
         {
             RectTransform.DOKill();
-            RectTransform.DOScale(0f, ANIMATION_DURATION).OnComplete(() => onComplete?.Invoke());
+            await RectTransform.DOScale(0f, ANIMATION_DURATION);
         }
     }
 }

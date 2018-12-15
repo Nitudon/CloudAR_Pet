@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UdonLib.Commons;
 
-namespace CloudPet.Common
+namespace CloudPet.UI
 {
     public class UICanvasManager : UdonBehaviourSingleton<UICanvasManager>
     {
