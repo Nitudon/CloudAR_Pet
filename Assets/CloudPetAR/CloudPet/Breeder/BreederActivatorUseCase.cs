@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CloudPet.Common;
 using CloudPet.AR;
-using UdonLib.Commons;
 
 namespace CloudPet.Pet
 {

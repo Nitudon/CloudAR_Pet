@@ -48,7 +48,7 @@ namespace CloudPet.Network
                 return;
             }
 
-            var option = GetCloudRoomTemplate(string.Empty);
+            var option = RoomUtility.GetCloudRoomTemplate(string.Empty);
             await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
             {
                 RoomManager.Instance.Model.SetRoomName(roomName);
@@ -62,7 +62,7 @@ namespace CloudPet.Network
                 return;
             }
 
-            var option = GetCloudRoomTemplate(anchorId);
+            var option = RoomUtility.GetCloudRoomTemplate(anchorId);
             await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
             {
                 RoomManager.Instance.Model.SetRoomName(roomName);

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UdonLib.Commons;
-using UniRx;
+using UniRx.Async;
 using UniRx.Triggers;
 
 public class CharacterModel : UdonBehaviour, IAsyncInitializable
@@ -24,7 +21,7 @@ public class CharacterModel : UdonBehaviour, IAsyncInitializable
     private IObservable<Collider> _searchObservable;
     public IObservable<Collider> SearchObservable => _searchObservable;
 
-    public async Task Initialize()
+    public async UniTask Initialize()
     {
         _searchObservable = _searchCollider.OnTriggerEnterAsObservable();
     }

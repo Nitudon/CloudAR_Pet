@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UniRx.Async;
 
 namespace UdonLib.Commons
 {
@@ -17,7 +17,7 @@ namespace UdonLib.Commons
         {
             base.Start();
             _initializers.ForEach(x => x.Initialize());
-            await Task.WhenAll(_asyncInitializers.Select(task => task.Initialize()));
+            await UniTask.WhenAll(_asyncInitializers.Select(task => task.Initialize()));
         }
     }
 }

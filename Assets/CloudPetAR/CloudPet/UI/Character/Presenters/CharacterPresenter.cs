@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UnityEngine;
 using UdonLib.Commons;
 
-public class CharacterPresenter : MonoBehaviour, IAsyncInitializable
+public class CharacterPresenter : MonoBehaviour, IInitializable
 {
     private CharacterModel _model;
 
     private PlayableAnimationController _animationController;
 
-    public async Task Initialize()
+    public void Initialize()
     {
         _animationController.SetAnimator(_model.CharacterAnimator);
     }
