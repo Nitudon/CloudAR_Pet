@@ -39,6 +39,11 @@ Thumbs.db
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 
+# Jet Brains IDE generated
+.idea/
+Assets/Plugins/Editor/JetBrains.meta
+Assets/Plugins/Editor/JetBrains/
+
 *.apk #android build file
 *.log #log files, for some plugins
 *.pyc #python bytecode cache, for some plugins.

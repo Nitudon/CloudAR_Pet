@@ -12,7 +12,7 @@ namespace CloudPet.Pet
     {
         private CloudAnchorSystem _anchorSystem;
 
-        private BreederModel _model;
+        private readonly BreederModel _model;
 
         public BreederActivatorUseCase(BreederModel model, CloudAnchorSystem cloudAnchorSystem)
         {
@@ -24,7 +24,7 @@ namespace CloudPet.Pet
         {
             var pet = PetPresenter.Create(petRoot);
             _model.SetPet(pet);
-            
+
             pet.SetPosition(info.AnchoredWorldPosition);
         }
     }
