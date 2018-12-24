@@ -15,5 +15,7 @@ namespace CloudPet.UI
 
         [SerializeField]
         private Canvas _uiCanvas;
+
+        protected override bool IsDontDestroy => true;
     }
 }

@@ -31,12 +31,12 @@ namespace CloudPet.Network
         {
             RoomManager.Instance.Model
                 .onRoomCreated
-                .Subscribe(_ => LoadRoomScene())
+                .Subscribe(async _ => await LoadRoomScene())
                 .AddTo(gameObject);
 
             RoomManager.Instance.Model
                 .onRoomJoined
-                .Subscribe(_ => LoadRoomScene())
+                .Subscribe( async _ => await LoadRoomScene())
                 .AddTo(gameObject);
         }
 
@@ -52,9 +52,9 @@ namespace CloudPet.Network
             await _roomConnector.ConnectRoom(dialog.Result);
         }
 
-        private void LoadRoomScene()
+        private async UniTask LoadRoomScene()
         {
-            SceneManager.Instance.SceneLoad(CommonUtility.GetSceneName(SceneEnum.Room));
+            await CommonSceneManager.Instance.SceneLoadAsync(CommonUtility.GetSceneName(SceneEnum.Room));
         }
     }
 }
