@@ -14,7 +14,7 @@ namespace CloudPet.UI
         {
             RectTransform parent = UICanvasManager.Instance.DialogRoot;
             TDialog prefab = PrefabLoader.LoadPrefab<TDialog>(dialogType);
-            return await DialogManager.Instance.CreateDialog(parent, prefab, onInitialized);
+            return await CommonDialogManager.Instance.CreateDialog(prefab, onInitialized);
         }
     }
 }

@@ -16,9 +16,5 @@ namespace CloudPet.Network
         [SerializeField]
         private CommonButtonBase _createRoomButton;
         public CommonButtonBase CreateRoomButton => _createRoomButton;
-
-        [SerializeField]
-        private InputField _roomNameField;
-        public string RoomName => _roomNameField.text;
     }
 }
