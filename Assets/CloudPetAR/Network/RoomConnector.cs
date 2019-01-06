@@ -51,6 +51,10 @@ namespace CloudPet.Network
             await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
             {
                 RoomManager.Instance.Model.SetRoomName(roomName);
+                if (option.CustomRoomProperties.TryGetValue(RoomDefine.ANCHOR_KEY, out var anchorId))
+                {
+                    RoomManager.Instance.Model.SetAnchorId(anchorId.ToString());
+                }
             });
         }
 
@@ -62,7 +66,11 @@ namespace CloudPet.Network
             }
 
             var option = RoomUtility.GetCloudRoomTemplate(anchorId);
-            await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ => RoomManager.Instance.Model.SetRoomName(roomName));
+            await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
+            {
+                RoomManager.Instance.Model.SetRoomName(roomName);
+                RoomManager.Instance.Model.SetAnchorId(anchorId);
+            });
         }
 
         private async UniTask FailureHandlingPhotonTask(Task<IResult<FailureReason, bool>> task, Action<IResult<FailureReason, bool>> onSuccess = null, Action<IResult<FailureReason, bool>> onFailure = null)

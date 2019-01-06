@@ -28,18 +28,6 @@ namespace CloudPet.AR
             {
                 _cloudAnchorController.SetHostMode();
             }
-
-            BindRoomConnection();
-        }
-
-        private void BindRoomConnection()
-        {
-            RoomManager.Instance
-                .Model
-                .AnchorId
-                .Where(_ => PhotonNetwork.isNonMasterClientInRoom)
-                .Subscribe(_cloudAnchorController.ResolveAnchorFromId)
-                .AddTo(gameObject);
         }
     }
 }

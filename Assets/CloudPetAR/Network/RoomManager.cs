@@ -10,6 +10,8 @@ namespace CloudPet.Network
         private RoomModel _model;
         public RoomModel Model => _model;
 
+        public string AnchorId => _model.AnchorId.Value;
+
         protected override bool IsDontDestroy => true;
 
         public override void Initialize()

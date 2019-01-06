@@ -3,6 +3,7 @@ using UniRx;
 using UdonLib.Commons;
 using UnityEngine;
 using CloudPet.AR;
+using CloudPet.Network;
 
 namespace CloudPet.Pet
 {
@@ -21,11 +22,11 @@ namespace CloudPet.Pet
         private Transform _petRoot;
 
         [SerializeField]
-        private BreederUIView _breederUIController;
-        
+        private BreederUIView _breederUIView;
+
         private BreederModel _model;
         public BreederModel Model => _model;
-        
+
         private BreederActivatorUseCase _activatorUseCase;
         private BreederARUseCase _arUseCase;
 
@@ -52,7 +53,7 @@ namespace CloudPet.Pet
             _model
                 .Mode
                 .Where(mode => mode != UIMode.None)
-                .Subscribe(_breederUIController.SetMode)
+                .Subscribe(_breederUIView.SetMode)
                 .AddTo(gameObject)
                 .AddTo(_disposable);
 
@@ -72,7 +73,7 @@ namespace CloudPet.Pet
 
         private void SetEvent()
         {
-            _breederUIController.AnchorSystemUIView.AnchorSettingButton.onClickedCallback += () =>
+            _breederUIView.AnchorSystemUIView.AnchorSettingButton.onClickedCallback += () =>
             {
                 if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting && _cloudAnchorSystem.AnchorModel.IsTrackable.Value)
                 {
@@ -80,7 +81,7 @@ namespace CloudPet.Pet
                 }
                 else if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Resolving)
                 {
-                    
+                    _cloudAnchorSystem.ResolveAnchorFromId(RoomManager.Instance.AnchorId);
                 }
             };
         }
