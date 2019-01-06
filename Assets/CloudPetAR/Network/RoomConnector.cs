@@ -32,8 +32,7 @@ namespace CloudPet.Network
                 {
                     var roomProperty = PhotonNetwork.room.CustomProperties;
                     RoomManager.Instance.Model.SetRoomName(roomName);
-                    object anchorId;
-                    if(roomProperty.TryGetValue(RoomDefine.ANCHOR_KEY, out anchorId))
+                    if(roomProperty.TryGetValue(RoomDefine.ANCHOR_KEY, out var anchorId))
                     {
                         RoomManager.Instance.Model.SetAnchorId(anchorId.ToString());
                     }
@@ -49,7 +48,10 @@ namespace CloudPet.Network
             }
 
             var option = RoomUtility.GetCloudRoomTemplate(string.Empty);
-            await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ => RoomManager.Instance.Model.SetRoomName(roomName));
+            await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
+            {
+                RoomManager.Instance.Model.SetRoomName(roomName);
+            });
         }
 
         public async UniTask CreateRoom(string roomName, string anchorId)

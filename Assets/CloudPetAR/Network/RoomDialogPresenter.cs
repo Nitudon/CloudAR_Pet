@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using CloudPet.UI;
+using UdonLib.Commons.Extensions;
 using UniRx.Async;
 
 namespace CloudPet.Network
@@ -18,6 +19,11 @@ namespace CloudPet.Network
             _view.DecideButton.onClickedCallback += async () =>
             {
                 _result = _view.Name;
+                if (_view.Name.IsNullOrWhiteSpace())
+                {
+                    return;
+                }
+
                 await CloseDialog();
             };
 

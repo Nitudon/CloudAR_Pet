@@ -4,6 +4,7 @@ using UniRx;
 using UniRx.Async;
 using CloudPet.Commons;
 using CloudPet.UI;
+using UdonLib.Commons.Extensions;
 
 namespace CloudPet.Network
 {
@@ -43,12 +44,22 @@ namespace CloudPet.Network
         private async UniTask OpenCreateRoomDialog()
         {
             var dialog = await DialogUtility.CreateDialog<RoomDialogPresenter>(DialogType.RoomDialog);
+            if (dialog.Result.IsNullOrWhiteSpace())
+            {
+                return;
+            }
+
             await _roomConnector.CreateRoom(dialog.Result);
         }
 
         private async UniTask OpenJoinRoomDialog()
         {
             var dialog = await DialogUtility.CreateDialog<RoomDialogPresenter>(DialogType.RoomDialog);
+            if (dialog.Result.IsNullOrWhiteSpace())
+            {
+                return;
+            }
+
             await _roomConnector.ConnectRoom(dialog.Result);
         }
 
