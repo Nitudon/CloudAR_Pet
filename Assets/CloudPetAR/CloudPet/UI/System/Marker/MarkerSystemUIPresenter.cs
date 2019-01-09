@@ -11,7 +11,7 @@ public class MarkerSystemUIPresenter : UIMono, IInitializable
 
     public void Initialize()
     {
-        
+
     }
 
     public void SetEnable(bool enable)

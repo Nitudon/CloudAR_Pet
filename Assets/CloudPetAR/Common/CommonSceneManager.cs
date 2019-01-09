@@ -20,12 +20,12 @@ namespace CloudPet.Commons
 
         private async UniTask ShowLoading()
         {
-            await _shadowFade.FadeGroup(true);
+            await _shadowFade.FadeGroupAsync(true);
         }
 
         private async UniTask HideLoading()
         {
-            await _shadowFade.FadeGroup(false);
+            await _shadowFade.FadeGroupAsync(false);
         }
     }
 }
