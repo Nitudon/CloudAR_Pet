@@ -183,7 +183,7 @@ MonoBehaviour:
   _planeDetectionGesture: {fileID: 1788646832}
   _cloudAnchorSystem: {fileID: 62908035}
   _petRoot: {fileID: 1343029794}
-  _breederUIController: {fileID: 4637564}
+  _breederUIView: {fileID: 4637564}
 --- !u!1 &28110767
 GameObject:
   m_ObjectHideFlags: 0
