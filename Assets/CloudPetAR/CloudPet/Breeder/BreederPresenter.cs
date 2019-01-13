@@ -97,6 +97,21 @@ namespace CloudPet.Pet
                 {
                     _cloudAnchorSystem.ResolveAnchorFromId(RoomManager.Instance.AnchorId);
                 }
+
+                _model.SetMode(UIMode.Activate);
+            };
+
+            _breederUIView.PetSystemUIView.PetActivationButton.onClickedCallback += () =>
+            {
+                if (!_cloudAnchorSystem.AnchorModel.IsTrackable.Value)
+                {
+                    return;
+                }
+
+                PetPresenter pet = PetPresenter.Create(_petRoot, _cloudAnchorSystem.AnchorModel.PlacedAnchorRoot.Value.transform.position);
+
+                _model.SetPet(pet);
+                _model.SetMode(UIMode.Breed);
             };
         }
 
