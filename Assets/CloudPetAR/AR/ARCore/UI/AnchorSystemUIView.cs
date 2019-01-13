@@ -1,8 +1,10 @@
-﻿using UniRx;
+﻿using System;
+using UniRx;
 using UdonLib.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using CloudPet.AR;
+using CloudPet.Pet;
 
 namespace CloudPet.AR
 {
@@ -20,13 +22,21 @@ namespace CloudPet.AR
 
         public void SetEnable(bool enable)
         {
-            _anchorSettingButton.SetEnable(enable);
+            _anchorSettingButton.SetVisible(enable);
             _anchorSettingDescription.enabled = enable;
         }
 
-        public void SetAnchorSettingDescription(string text)
+        public void SetAnchorSettingDescription(UIMode mode)
         {
-            _anchorSettingDescription.text = text;
+            switch (mode)
+            {
+                case UIMode.Anchor:
+                    _anchorSettingDescription.text = "部屋に\n入る";
+                    break;
+                default:
+                    SetEnable(false);
+                    break;
+            }
         }
     }
 }

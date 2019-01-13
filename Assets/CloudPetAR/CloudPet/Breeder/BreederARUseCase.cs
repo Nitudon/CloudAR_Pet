@@ -9,7 +9,7 @@ using GoogleARCore.CrossPlatform;
 namespace CloudPet.Pet
 {
     /// <summary>
-    /// ブリーダーのAR周りのユースケース
+    /// ブリーダーのAR周りの検知ロジック
     /// </summary>
     public class BreederARUseCase
     {
@@ -36,8 +36,8 @@ namespace CloudPet.Pet
             {
                 return _planeDetectionGesture
                         .DetectedPose
-                        .Where(_ => !_planeDetectionGesture.IsDestroyed)
-                        .Select(info => new Tuple<bool, Anchor>(info.Item1, info.Item2.Trackable.CreateAnchor(info.Item2.Pose)))
+                        .Where(info => !_planeDetectionGesture.IsDestroyed && info != null)
+                        .Select(info => new Tuple<bool, Anchor>(info.Item1, info.Item1 ? info.Item2.Trackable.CreateAnchor(info.Item2.Pose) : null))
                         .ToReactiveProperty();
             }
         }

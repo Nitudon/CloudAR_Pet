@@ -21,7 +21,7 @@ namespace CloudPet.Pet
 
         public PetInfo OwnPet => _petPresenter.Model.Info;
 
-        public BreederModel(string id, string name)
+        public void SetBreeder(string id, string name)
         {
             _id = id;
             _name = name;

@@ -45,9 +45,9 @@ namespace CloudPet.AR
 
         public void Dispose()
         {
-            _detectedPose.Dispose();
-            OnTouched.Dispose();
-            _touchDetector.Dispose();
+            OnTouched?.Dispose();
+            _detectedPose?.Dispose();
+            _touchDetector?.Dispose();
         }
 
         public void OnDestroy()
@@ -59,7 +59,7 @@ namespace CloudPet.AR
         {
             if (Input.touchCount <= 0)
             {
-                return default(Tuple<bool, TrackableHit>);
+                return new Tuple<bool, TrackableHit>(false, default(TrackableHit));
             }
 
             Touch touch = Input.GetTouch(0);

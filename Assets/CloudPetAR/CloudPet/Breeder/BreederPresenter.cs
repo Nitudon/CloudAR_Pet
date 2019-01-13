@@ -34,7 +34,8 @@ namespace CloudPet.Pet
 
         public override void Initialize()
         {
-            //_model = new BreederModel();
+            _model = new BreederModel();
+            _breederUIView.Initialize();
 
             _activatorUseCase = new BreederActivatorUseCase(_model, _cloudAnchorSystem);
             _arUseCase = new BreederARUseCase(_planeDetectionGesture, _cloudAnchorSystem.AnchorModel);

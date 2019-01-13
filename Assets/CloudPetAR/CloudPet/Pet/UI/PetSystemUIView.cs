@@ -17,7 +17,7 @@ namespace CloudPet.Pet
 
         public void SetEnable(bool enable)
         {
-            _petActivationButton.SetEnable(enable);
+            _petActivationButton.SetVisible(enable);
         }
     }
 }

@@ -3,7 +3,6 @@
     public enum UIMode
     {
         None,
-        Wait,
         Anchor,
         Activate,
         Breed
