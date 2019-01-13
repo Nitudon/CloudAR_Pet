@@ -66,7 +66,15 @@ namespace CloudPet.Pet
             _arUseCase
                 .TrackingHitInfoEveryChanged
                 .Where(_ => _model.Mode.Value == UIMode.Anchor && _cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting)
-                .Subscribe(info => _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2))
+                .Subscribe(info =>
+                {
+                    _breederUIView.AnchorSystemUIView.AnchorSettingButton.SetEnable(info.Item1);
+
+                    if (info.Item1)
+                    {
+                        _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
+                    }
+                })
                 .AddTo(gameObject)
                 .AddTo(_disposable);
         }
@@ -75,7 +83,12 @@ namespace CloudPet.Pet
         {
             _breederUIView.AnchorSystemUIView.AnchorSettingButton.onClickedCallback += () =>
             {
-                if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting && _cloudAnchorSystem.AnchorModel.IsTrackable.Value)
+                if (!_cloudAnchorSystem.AnchorModel.IsTrackable.Value)
+                {
+                    return;
+                }
+
+                if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting)
                 {
                     _cloudAnchorSystem.HostLastPlacedAnchor();
                 }
