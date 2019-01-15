@@ -7,6 +7,7 @@ namespace CloudPet.Pet
 {
     public class PetPresenter : InitializableMono
     {
+
         [SerializeField]
         private PetController _petController;
 

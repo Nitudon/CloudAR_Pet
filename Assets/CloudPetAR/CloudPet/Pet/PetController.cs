@@ -12,7 +12,12 @@ namespace CloudPet.Pet
 
         public void ActivatePet()
         {
-            
+
+        }
+
+        public void PlayMotion()
+        {
+
         }
     }
 }
