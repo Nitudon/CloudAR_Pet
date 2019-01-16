@@ -12,7 +12,7 @@ namespace CloudPet.Pet
 
         public void SetState(PetState state)
         {
-            
+
         }
     }
 }

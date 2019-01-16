@@ -1,4 +1,6 @@
-﻿namespace CloudPet.AR
+﻿using UnityEngine.XR.iOS;
+
+namespace CloudPet.AR
 {
     using GoogleARCore;
     using GoogleARCore.CrossPlatform;
@@ -12,8 +14,15 @@
         private ReactiveProperty<bool> _isTrackable = new ReactiveProperty<bool>();
         public IReadOnlyReactiveProperty<bool> IsTrackable => _isTrackable;
 
+#if UNITY_ANDROID
         private ReactiveProperty<Component> _placedAnchorRoot = new ReactiveProperty<Component>();
         public IReadOnlyReactiveProperty<Component> PlacedAnchorRoot => _placedAnchorRoot;
+#endif
+
+#if UNITY_IOS
+        private ReactiveProperty<UnityARUserAnchorComponent> _placedAnchorRoot = new ReactiveProperty<UnityARUserAnchorComponent>();
+        public IReadOnlyReactiveProperty<UnityARUserAnchorComponent> PlacedAnchorRoot => _placedAnchorRoot;
+#endif
 
         private ReactiveProperty<XPAnchor> _resolvedAnchorInfo = new ReactiveProperty<XPAnchor>();
         public IReadOnlyReactiveProperty<XPAnchor> ResolvedAnchorInfo => _resolvedAnchorInfo;
@@ -50,11 +59,21 @@
             CloudMode = mode;
         }
 
+#if UNITY_ANDROID
         public void SetPlacedAnchorRoot(bool trackable, Component anchor)
         {
             _isTrackable.Value = trackable;
             _placedAnchorRoot.Value = anchor;
         }
+#endif
+
+#if UNITY_IOS
+        public void SetPlacedAnchorRoot(bool trackable, UnityARUserAnchorComponent anchor)
+        {
+            _isTrackable.Value = trackable;
+            _placedAnchorRoot.Value = anchor;
+        }
+#endif
 
         public void SetResolvedAnchorInfo(XPAnchor anchor)
         {

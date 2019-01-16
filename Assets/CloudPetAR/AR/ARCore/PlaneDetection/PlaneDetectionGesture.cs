@@ -4,6 +4,7 @@ using UnityEngine;
 using UdonLib.Commons;
 using UniRx;
 using GoogleARCore;
+using GoogleARCore.Examples.CloudAnchor;
 
 namespace CloudPet.AR
 {
@@ -15,6 +16,18 @@ namespace CloudPet.AR
         [SerializeField]
         private PlaneDetectionView view;
 
+//#if UNITY_IOS
+        [Header("ARKit")]
+
+        [SerializeField]
+        private Transform ARKitRoot;
+
+        [SerializeField]
+        private Camera ARKitFirstPersonCamera;
+
+        private ARKitHelper _iosARHelper = new ARKitHelper();
+//#endif
+
         private static readonly Vector2 DETECT_RAY_CENTER = Vector2.zero;
 
         private ReactiveProperty<Tuple<bool, TrackableHit>> _detectedPose;
@@ -23,6 +36,7 @@ namespace CloudPet.AR
         public Subject<Unit> OnTouched { get; private set; }
 
         private IDisposable _touchDetector;
+
 
         public override void Initialize()
         {
@@ -77,14 +91,16 @@ namespace CloudPet.AR
 
             return new Tuple<bool, TrackableHit>(isHit, hit);
 #endif
+        }
 
 #if UNITY_IOS
+        private Tuple<bool, Pose> RayCastPose(Vector2 position)
+        {
             Pose hitPose;
-            if (m_ARKit.RaycastPlane(ARKitFirstPersonCamera, touch.position.x, touch.position.y, out hitPose))
-            {
-                _anchorModel.SetPlacedAnchorRoot(m_ARKit.CreateAnchor(hitPose));
-            }
-#endif
+            bool isHit = _iosARHelper.RaycastPlane(ARKitFirstPersonCamera, position.x, position.y, out hitPose);
+
+            return new Tuple<bool, Pose>(isHit, hitPose);
         }
+#endif
     }
 }

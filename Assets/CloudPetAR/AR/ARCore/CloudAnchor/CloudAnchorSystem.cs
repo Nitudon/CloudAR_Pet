@@ -26,18 +26,6 @@
         [SerializeField]
         private Transform ARCoreRoot;
 #endif
-
-#if UNITY_IOS
-        [Header("ARKit")]
-
-        [SerializeField]
-        public Transform ARKitRoot;
-
-        [SerializeField]
-        public Camera ARKitFirstPersonCamera;
-
-        private ARKitHelper m_ARKit = new ARKitHelper();
-#endif
         private bool _isHost;
 
         private const string LOOK_BACK_IP = "127.0.0.1";

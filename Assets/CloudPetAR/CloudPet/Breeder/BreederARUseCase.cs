@@ -5,6 +5,10 @@ using CloudPet.AR;
 using UnityEngine;
 using GoogleARCore;
 using GoogleARCore.CrossPlatform;
+using GoogleARCore.Examples.CloudAnchor;
+#if UNITY_IOS
+using UnityEngine.XR.iOS;
+#endif
 
 namespace CloudPet.Pet
 {
@@ -16,6 +20,10 @@ namespace CloudPet.Pet
         private PlaneDetectionGesture _planeDetectionGesture;
 
         private CloudAnchorModel _anchorModel;
+
+#if UNITY_IOS
+        private ARKitHelper _iosARHelper = new ARKitHelper();
+#endif
 
         public BreederARUseCase(PlaneDetectionGesture planeDetectionGesture, CloudAnchorModel cloudAnchorModel)
         {
@@ -30,6 +38,7 @@ namespace CloudPet.Pet
             _planeDetectionGesture.SetDetectionActive(active);
         }
 
+#if UNITY_ANDROID
         public IReadOnlyReactiveProperty<Tuple<bool, Anchor>> TrackingHitInfoEveryChanged
         {
             get
@@ -41,6 +50,21 @@ namespace CloudPet.Pet
                         .ToReactiveProperty();
             }
         }
+#endif
+
+#if UNITY_IOS
+        public IReadOnlyReactiveProperty<Tuple<bool, UnityARUserAnchorComponent>> TrackingHitInfoEveryChanged
+        {
+            get
+            {
+                return _planeDetectionGesture
+                    .DetectedPose
+                    .Where(info => !_planeDetectionGesture.IsDestroyed && info != null)
+                    .Select(info => new Tuple<bool, UnityARUserAnchorComponent>(info.Item1, info.Item1 ? _iosARHelper.CreateAnchor(info.Item2) : null))
+                    .ToReactiveProperty();
+            }
+        }
+#endif
 
         public IReadOnlyReactiveProperty<ActivateInfo> ActivateInfoEveryChanged
         {

@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/CloudPetAR/Scenes/CloudPetAR_Android.unity
-    guid: 6c1876ee8805a5b41992e98d4bd7937e
-  - enabled: 1
     path: Assets/CloudPetAR/Scenes/RoomStep.unity
     guid: 01c3a9555afe98642af47581f32ae885
+  - enabled: 1
+    path: Assets/CloudPetAR/Scenes/CloudPetAR_Android.unity
+    guid: 6c1876ee8805a5b41992e98d4bd7937e
+  - enabled: 0
+    path: Assets/CloudPetAR/Scenes/CloudPetAR_iOS.unity
+    guid: 05f84b0adb62fe44ca7e33c1e9fd7c1f
   m_configObjects: {}

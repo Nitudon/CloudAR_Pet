@@ -436,8 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f2228321ef8294e84526e50ef55d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIController: {fileID: 0}
-  ARCoreRoot: {fileID: 0}
+  UIController: {fileID: 370638273}
+  ARCoreRoot: {fileID: 1943188170}
 --- !u!1 &103654087
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,10 +464,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 103654087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a0d83d553405543b778d026dd222b0, type: 3}
+  m_Script: {fileID: 11500000, guid: a89f354508ff57f4d9a65697f2dba205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _markerPresenter: {fileID: 0}
+  _initializers:
+  - {fileID: 4637565}
+  - {fileID: 1788646832}
+  - {fileID: 62908035}
+  _asyncInitializers: []
 --- !u!224 &103654089
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3172,7 +3176,7 @@ RectTransform:
   m_GameObject: {fileID: 1731552559}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.21682018, y: 0.21682018, z: 0.21682018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1028217024}
   - {fileID: 909898735}
@@ -3183,7 +3187,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 154, y: 316.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1788646829
