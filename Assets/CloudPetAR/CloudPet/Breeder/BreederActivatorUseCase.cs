@@ -20,6 +20,11 @@ namespace CloudPet.Pet
             _anchorSystem = cloudAnchorSystem;
         }
 
+        /// <summary>
+        /// ペットを呼ぶ
+        /// </summary>
+        /// <param name="petRoot">ペットをぶらさげるRoot</param>
+        /// <param name="info">ペットを呼んだ際の通知用info</param>
         public void ActivatePet(Transform petRoot, ActivateInfo info)
         {
             var pet = PetPresenter.Create(petRoot);

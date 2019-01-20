@@ -13,7 +13,7 @@ using UnityEngine.XR.iOS;
 namespace CloudPet.Pet
 {
     /// <summary>
-    /// ブリーダーのAR周りの検知ロジック
+    /// ブリーダーのAR周りのロジック
     /// </summary>
     public class BreederARUseCase
     {
@@ -33,12 +33,19 @@ namespace CloudPet.Pet
             _planeDetectionGesture.Initialize();
         }
 
+        /// <summary>
+        /// 平面検地のオンオフ
+        /// </summary>
+        /// <param name="active"></param>
         public void SelectPlaneEnable(bool active)
         {
             _planeDetectionGesture.SetDetectionActive(active);
         }
 
 #if UNITY_ANDROID
+        /// <summary>
+        /// 平面検知情報の購読用ストリーム、検知したかどうかとその検知した地点を返す
+        /// </summary>
         public IReadOnlyReactiveProperty<Tuple<bool, Anchor>> TrackingHitInfoEveryChanged
         {
             get
@@ -53,6 +60,9 @@ namespace CloudPet.Pet
 #endif
 
 #if UNITY_IOS
+        /// <summary>
+        /// 平面検知情報の購読用ストリーム、検知したかどうかとその検知した地点を返す
+        /// </summary>
         public IReadOnlyReactiveProperty<Tuple<bool, UnityARUserAnchorComponent>> TrackingHitInfoEveryChanged
         {
             get
@@ -65,7 +75,9 @@ namespace CloudPet.Pet
             }
         }
 #endif
-
+        /// <summary>
+        /// ペット召喚情報の購読用ストリーム
+        /// </summary>
         public IReadOnlyReactiveProperty<ActivateInfo> ActivateInfoEveryChanged
         {
             get

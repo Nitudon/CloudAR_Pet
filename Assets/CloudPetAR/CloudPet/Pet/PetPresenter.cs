@@ -6,6 +6,9 @@ using UniRx;
 
 namespace CloudPet.Pet
 {
+    /// <summary>
+    /// ペットのロジック
+    /// </summary>
     public class PetPresenter : InitializableMono
     {
 

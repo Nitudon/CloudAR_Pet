@@ -5,6 +5,9 @@ using UdonLib.Commons;
 
 namespace CloudPet.Pet
 {
+    /// <summary>
+    /// ペットのアニメーションなどの動きを担当する
+    /// </summary>
     public class PetController : InitializableMono
     {
         [SerializeField]
