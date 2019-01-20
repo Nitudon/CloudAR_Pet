@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UdonLib.Commons;
+using UniRx;
 
 namespace CloudPet.Pet
 {
@@ -16,12 +17,18 @@ namespace CloudPet.Pet
 
         public override void Initialize()
         {
+            _model = new PetModel();
+            _petController.Initialize();
             Bind();
         }
 
         private void Bind()
         {
-
+            _model
+                .State
+                .Where(state => state != PetState.None)
+                .Subscribe(_petController.PlayMotion)
+                .AddTo(gameObject);
         }
 
         public static PetPresenter Create(Transform root, Vector3 localPosition = new Vector3(), Vector3 localEulerAngle = new Vector3())
@@ -29,6 +36,7 @@ namespace CloudPet.Pet
             var instance = Instantiate(Resources.Load<PetPresenter>(PetDefine.PET_PREFAB_PATH));
             instance.SetLocalPosition(localPosition);
             instance.SetLocalEulerAngles(localEulerAngle);
+            instance.Initialize();
 
             return instance;
         }

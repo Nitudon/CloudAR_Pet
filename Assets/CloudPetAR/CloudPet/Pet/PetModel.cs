@@ -4,15 +4,15 @@ namespace CloudPet.Pet
 {
     public class PetModel
     {
-        private PetInfo _info;
-        public PetInfo Info => _info;
+        private ReactiveProperty<PetInfo> _info = new ReactiveProperty<PetInfo>();
+        public IReadOnlyReactiveProperty<PetInfo> Info => _info;
 
         private ReactiveProperty<PetState> _state = new ReactiveProperty<PetState>(PetState.Idle);
         public IReadOnlyReactiveProperty<PetState> State => _state;
 
-        public PetModel(PetInfo info)
+        public void SetInfo(PetInfo info)
         {
-            _info = info;
+            _info.Value = info;
         }
 
         public void SetState(PetState state)

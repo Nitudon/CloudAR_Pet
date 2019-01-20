@@ -5,19 +5,24 @@ using UdonLib.Commons;
 
 namespace CloudPet.Pet
 {
-    public class PetController : UdonBehaviour
+    public class PetController : InitializableMono
     {
         [SerializeField]
         private SimpleAnimation _animationController;
 
-        public void ActivatePet()
-        {
+        [SerializeField]
+        private Animator _animator;
 
+        public override void Initialize()
+        {
+            _animationController.Initialize();
+            _animationController.SetAnimator(_animator);
+            PlayMotion(PetState.Idle);
         }
 
-        public void PlayMotion()
+        public void PlayMotion(PetState state)
         {
-
+            _animationController.PlayAnimation(PetDefine.GetPetMotion(state));
         }
     }
 }
