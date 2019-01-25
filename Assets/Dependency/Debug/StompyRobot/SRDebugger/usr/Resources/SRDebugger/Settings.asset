@@ -58,8 +58,8 @@ MonoBehaviour:
   _profilerAlignment: 2
   _optionsAlignment: 3
   _consoleAlignment: 0
-  _triggerPosition: 7
+  _triggerPosition: 5
   _maximumConsoleEntries: 1500
   _enableEventSystemCreation: 1
   _automaticShowCursor: 1
-  _uiScale: 3
+  _uiScale: 1

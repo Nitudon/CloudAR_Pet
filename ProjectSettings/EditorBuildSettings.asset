@@ -11,7 +11,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CloudPetAR/Scenes/CloudPetAR_Android.unity
     guid: 6c1876ee8805a5b41992e98d4bd7937e
-  - enabled: 0
-    path: Assets/CloudPetAR/Scenes/CloudPetAR_iOS.unity
-    guid: 05f84b0adb62fe44ca7e33c1e9fd7c1f
   m_configObjects: {}

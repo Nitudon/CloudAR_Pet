@@ -1,4 +1,6 @@
-﻿using UnityEngine.XR.iOS;
+﻿#if UNITY_IOS
+using UnityEngine.XR.iOS;
+#endif
 
 namespace CloudPet.AR
 {

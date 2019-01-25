@@ -483,8 +483,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f2228321ef8294e84526e50ef55d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIController: {fileID: 0}
-  ARCoreRoot: {fileID: 0}
+  UIController: {fileID: 370638273}
+  ARCoreRoot: {fileID: 258007173}
 --- !u!1 &103654087
 GameObject:
   m_ObjectHideFlags: 0
@@ -3052,6 +3052,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 1788646831}
+  ARKitRoot: {fileID: 0}
+  ARKitFirstPersonCamera: {fileID: 0}
 --- !u!225 &1788646833
 CanvasGroup:
   m_ObjectHideFlags: 0
