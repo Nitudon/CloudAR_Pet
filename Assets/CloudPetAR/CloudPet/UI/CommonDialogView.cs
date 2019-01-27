@@ -8,7 +8,7 @@ namespace CloudPet.UI
 {
     public class CommonDialogView : DialogViewBase
     {
-        private const float ANIMATION_DURATION = 0.3f;
+        private const float ANIMATION_DURATION = 0.15f;
 
         public override async UniTask OpenDialogAnimation()
         {
