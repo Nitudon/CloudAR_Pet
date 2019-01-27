@@ -1263,10 +1263,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitArea: {fileID: 2071861245}
   _buttonImage: {fileID: 1421637684}
+  _buttonUIGroup: {fileID: 0}
   _buttonEnable: 1
   _colorInteractionEnable: 0
   _scaleInteractionEnable: 1
   _clickDuration: 0.3
+  _multipleTapEnable: 1
   _disableColor: {r: 0.6, g: 0.6, b: 0.6, a: 1.2}
   _pressedColor: {r: 0.75, g: 0.75, b: 0.75, a: 1.5}
   _scaleDelta: -0.08
@@ -1324,10 +1326,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitArea: {fileID: 307558744}
   _buttonImage: {fileID: 1572388957}
+  _buttonUIGroup: {fileID: 0}
   _buttonEnable: 1
   _colorInteractionEnable: 0
   _scaleInteractionEnable: 1
   _clickDuration: 0.3
+  _multipleTapEnable: 1
   _disableColor: {r: 0.6, g: 0.6, b: 0.6, a: 1.2}
   _pressedColor: {r: 0.75, g: 0.75, b: 0.75, a: 1.5}
   _scaleDelta: -0.08
@@ -1645,10 +1649,10 @@ RectTransform:
   m_Father: {fileID: 1496387277}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1920}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1456969147
 MonoBehaviour:
@@ -1844,8 +1848,8 @@ RectTransform:
   m_Father: {fileID: 1319535516}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -34,7 +34,7 @@ RectTransform:
   - {fileID: 7272208529405694081}
   - {fileID: 224046062270671564}
   m_Father: {fileID: 224533084957459622}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -202,14 +202,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 4739892607881820081}
   - {fileID: 224472715868251698}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 1920}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114160944181465474
 MonoBehaviour:
@@ -240,8 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9b0eb4f9e60cb41843ee649db3c06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isAutoCloseLostFocus: 1
+  _blocking: {fileID: 9017198191126662692}
   _view: {fileID: 114160944181465474}
-  _blocking: {fileID: 1176051749357686027}
 --- !u!114 &5689761621612955986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,6 +743,79 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u304A\u3078\u3084\u4F5C\u6210"
+--- !u!1 &50675358779029474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4739892607881820081}
+  - component: {fileID: 7092875452195185628}
+  - component: {fileID: 8064775296400391937}
+  - component: {fileID: 9017198191126662692}
+  m_Layer: 5
+  m_Name: Blocking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4739892607881820081
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50675358779029474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224533084957459622}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7092875452195185628
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50675358779029474}
+  m_CullTransparentMesh: 0
+--- !u!114 &8064775296400391937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50675358779029474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fdc2c5823f38e647832f05430231747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+--- !u!114 &9017198191126662692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50675358779029474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2080119164a337b41b12315e47485c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1265091320485696865
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,10 +947,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitArea: {fileID: 2740373334264463559}
   _buttonImage: {fileID: 2740697368940118319}
+  _buttonUIGroup: {fileID: 0}
   _buttonEnable: 1
   _colorInteractionEnable: 1
   _scaleInteractionEnable: 1
   _clickDuration: 0.3
+  _multipleTapEnable: 1
   _disableColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1.5}
   _pressedColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 1}
   _scaleDelta: -0.08

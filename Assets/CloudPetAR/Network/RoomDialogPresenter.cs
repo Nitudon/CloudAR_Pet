@@ -8,14 +8,9 @@ namespace CloudPet.Network
     [RequireComponent(typeof(RoomDialogView))]
     public class RoomDialogPresenter : CommonDialogPresenter<RoomDialogView, string>
     {
-        public override void Initialize()
+        protected override void SetEvent()
         {
-            SetEvent();
-            base.Initialize();
-        }
-
-        private void SetEvent()
-        {
+            base.SetEvent();
             _view.DecideButton.onClickedCallback += async () =>
             {
                 _result = _view.Name;
