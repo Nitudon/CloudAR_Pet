@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 6b92b2d4f1ffd0447b7125c7f8a7de6e
+guid: e7543fda8994421fa60692631d86c087
 labels:
-- ExitGames
-- PUN
-- Photon
-- Networking
+- gvh
+- gvh_targets-editor
+- gvh_version-1.2.64.0
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
