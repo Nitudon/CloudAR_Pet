@@ -9,7 +9,7 @@ namespace CloudPet.Network
     {
         [SerializeField]
         private InputField _nameField;
-        public string Name => _nameField.text;
+        public string Name => _nameField.textComponent.text;
 
         [SerializeField]
         private CommonButtonBase _closeButton;

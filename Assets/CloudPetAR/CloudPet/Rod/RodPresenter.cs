@@ -19,7 +19,7 @@ namespace FisherAR.InGame
         public override void Initialize()
         {
             _model = new RodModel();
-            
+
             Bind();
         }
 

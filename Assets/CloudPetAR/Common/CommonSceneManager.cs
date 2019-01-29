@@ -10,10 +10,14 @@ namespace CloudPet.Commons
         [SerializeField]
         private FadeUIGroup _shadowFade;
 
+        protected override bool IsDontDestroy => true;
+
         // TODO とりあえずプロジェクト側でユニークにasync/await加工する、あとでSceneManager側を修正
         public async UniTask SceneLoadAsync(string scene)
         {
             await ShowLoading();
+            SceneLoad(scene);
+            await new WaitUntil(() => IsLoading);
             await new WaitWhile(() => IsLoading);
             await HideLoading();
         }

@@ -241,9 +241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9b0eb4f9e60cb41843ee649db3c06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 114160944181465474}
   _isAutoCloseLostFocus: 1
   _blocking: {fileID: 9017198191126662692}
-  _view: {fileID: 114160944181465474}
 --- !u!114 &5689761621612955986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,7 +485,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -65}
-  m_SizeDelta: {x: 486, y: 70}
+  m_SizeDelta: {x: 486, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222767524667201130
 CanvasRenderer:

@@ -24,14 +24,14 @@ namespace CloudPet.Network
         {
             if (string.IsNullOrWhiteSpace(roomName))
             {
-                await FailureHandlingPhotonTask(PhotoTask.JoinRandomRoom(), _ => RoomManager.Instance.Model.SetRoomName(PhotonNetwork.room.Name));
+                await FailureHandlingPhotonTask(PhotoTask.JoinRandomRoom(), _ => RoomManager.Instance.Model.JoinRoom(PhotonNetwork.room.Name));
             }
             else
             {
                 await FailureHandlingPhotonTask(PhotoTask.JoinRoom(roomName), _ =>
                 {
                     var roomProperty = PhotonNetwork.room.CustomProperties;
-                    RoomManager.Instance.Model.SetRoomName(roomName);
+                    RoomManager.Instance.Model.JoinRoom(roomName);
                     if(roomProperty.TryGetValue(RoomDefine.ANCHOR_KEY, out var anchorId))
                     {
                         RoomManager.Instance.Model.SetAnchorId(anchorId.ToString());
@@ -50,7 +50,7 @@ namespace CloudPet.Network
             var option = RoomUtility.GetCloudRoomTemplate(string.Empty);
             await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
             {
-                RoomManager.Instance.Model.SetRoomName(roomName);
+                RoomManager.Instance.Model.CreateRoom(roomName);
                 if (option.CustomRoomProperties.TryGetValue(RoomDefine.ANCHOR_KEY, out var anchorId))
                 {
                     RoomManager.Instance.Model.SetAnchorId(anchorId.ToString());
@@ -68,7 +68,7 @@ namespace CloudPet.Network
             var option = RoomUtility.GetCloudRoomTemplate(anchorId);
             await FailureHandlingPhotonTask(PhotoTask.CreateRoom(roomName, option, null), _ =>
             {
-                RoomManager.Instance.Model.SetRoomName(roomName);
+                RoomManager.Instance.Model.CreateRoom(roomName);
                 RoomManager.Instance.Model.SetAnchorId(anchorId);
             });
         }
@@ -78,11 +78,12 @@ namespace CloudPet.Network
             var result = await task;
             if(result.IsSuccess)
             {
+                InstantLog.ObjectLog($"Photon Network Success : {result}", StringExtensions.TextColor.cyan);
                 onSuccess?.Invoke(result);
             }
             else
             {
-                InstantLog.StringLogError($"Photon Network Error : {result.ToFailure.Value}");
+                InstantLog.ObjectLog($"Photon Network Error : {result}", StringExtensions.TextColor.magenta);
                 onFailure?.Invoke(result);
             }
         }

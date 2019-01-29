@@ -31,12 +31,12 @@ namespace CloudPet.Network
         private void Bind()
         {
             RoomManager.Instance.Model
-                .onRoomCreated
+                .OnRoomCreated
                 .Subscribe(async _ => await LoadRoomScene())
                 .AddTo(gameObject);
 
             RoomManager.Instance.Model
-                .onRoomJoined
+                .OnRoomJoined
                 .Subscribe( async _ => await LoadRoomScene())
                 .AddTo(gameObject);
         }
@@ -44,23 +44,25 @@ namespace CloudPet.Network
         private async UniTask OpenCreateRoomDialog()
         {
             var dialog = await DialogUtility.CreateDialog<RoomDialogPresenter>(DialogType.RoomDialog);
+            var name = await dialog.WaitClose();
             if (dialog.Result.IsNullOrWhiteSpace())
             {
                 return;
             }
 
-            await _roomConnector.CreateRoom(dialog.Result);
+            await _roomConnector.CreateRoom(name);
         }
 
         private async UniTask OpenJoinRoomDialog()
         {
             var dialog = await DialogUtility.CreateDialog<RoomDialogPresenter>(DialogType.RoomDialog);
+            var name = await dialog.WaitClose();
             if (dialog.Result.IsNullOrWhiteSpace())
             {
                 return;
             }
 
-            await _roomConnector.ConnectRoom(dialog.Result);
+            await _roomConnector.ConnectRoom(name);
         }
 
         private async UniTask LoadRoomScene()

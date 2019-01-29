@@ -13,11 +13,11 @@ namespace CloudPet.Network
             base.SetEvent();
             _view.DecideButton.onClickedCallback += async () =>
             {
-                _result = _view.Name;
                 if (_view.Name.IsNullOrWhiteSpace())
                 {
                     return;
                 }
+                _result = _view.Name;
 
                 await CloseDialog();
             };
