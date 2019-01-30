@@ -6,7 +6,7 @@ using UdonLib.Commons;
 namespace CloudPet.Pet
 {
     public class PetAvaterController : UdonBehaviour
-    {  
+    {
         [SerializeField]
         private Animator _animator;
 
