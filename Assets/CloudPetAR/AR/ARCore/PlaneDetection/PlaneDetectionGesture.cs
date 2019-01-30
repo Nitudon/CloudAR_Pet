@@ -16,7 +16,7 @@ namespace CloudPet.AR
         [SerializeField]
         private PlaneDetectionView view;
 
-//#if UNITY_IOS
+#if UNITY_IOS
         [Header("ARKit")]
 
         [SerializeField]
@@ -26,7 +26,7 @@ namespace CloudPet.AR
         private Camera ARKitFirstPersonCamera;
 
         private ARKitHelper _iosARHelper = new ARKitHelper();
-//#endif
+#endif
 
         private static readonly Vector2 DETECT_RAY_CENTER = Vector2.zero;
 

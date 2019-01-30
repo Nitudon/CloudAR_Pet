@@ -89,11 +89,12 @@ namespace GoogleARCore.Examples.CloudAnchor
         /// </summary>
         private const float k_ModelRotation = 180.0f;
 
+#if UNITY_IOS
         /// <summary>
         /// A helper object to ARKit functionality.
         /// </summary>
         private ARKitHelper m_ARKit = new ARKitHelper();
-
+#endif
         /// <summary>
         /// True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
         /// </summary>
@@ -181,11 +182,13 @@ namespace GoogleARCore.Examples.CloudAnchor
             }
             else
             {
+                /*
                 Pose hitPose;
                 if (m_ARKit.RaycastPlane(ARKitFirstPersonCamera, touch.position.x, touch.position.y, out hitPose))
                 {
                     m_LastPlacedAnchor = m_ARKit.CreateAnchor(hitPose);
                 }
+                */
             }
 
             if (m_LastPlacedAnchor != null)

@@ -38,6 +38,9 @@ namespace GoogleARCoreInternal
     {
         private NativeSession m_NativeSession;
 
+        // Throttle warnings to at most once every N seconds.
+        private ThrottledLogMessage m_FailedToAcquireWarning = new ThrottledLogMessage(5f);
+
         public FrameApi(NativeSession nativeSession)
         {
             m_NativeSession = nativeSession;
@@ -71,7 +74,9 @@ namespace GoogleARCoreInternal
                 m_NativeSession.FrameHandle, ref cameraImageHandle);
             if (status != ApiArStatus.Success)
             {
-                Debug.LogWarningFormat("Failed to acquire camera image with status {0}", status);
+                m_FailedToAcquireWarning.ThrottledLogWarningFormat(
+                    "Failed to acquire camera image with status {0}.\n" +
+                    "Will continue to retry.", status);
                 return new CameraImageBytes(IntPtr.Zero);
             }
 
@@ -93,12 +98,17 @@ namespace GoogleARCoreInternal
             return true;
         }
 
-        public IntPtr AcquireImageMetadata()
+        public bool AcquireImageMetadata(ref IntPtr imageMetadataHandle)
         {
-            IntPtr imageMetadataHandle = IntPtr.Zero;
-            ExternApi.ArFrame_acquireImageMetadata(m_NativeSession.SessionHandle, m_NativeSession.FrameHandle,
-                ref imageMetadataHandle);
-            return imageMetadataHandle;
+            var status = ExternApi.ArFrame_acquireImageMetadata(m_NativeSession.SessionHandle,
+                m_NativeSession.FrameHandle, ref imageMetadataHandle);
+            if (status != ApiArStatus.Success)
+            {
+                Debug.LogErrorFormat("Failed to aquire camera image metadata with status {0}", status);
+                return false;
+            }
+
+            return true;
         }
 
         public LightEstimate GetLightEstimate()
@@ -145,7 +155,15 @@ namespace GoogleARCoreInternal
                     continue;
                 }
 
-                trackables.Add(m_NativeSession.TrackableFactory(trackableHandle));
+                Trackable trackable = m_NativeSession.TrackableFactory(trackableHandle);
+                if (trackable != null)
+                {
+                    trackables.Add(trackable);
+                }
+                else
+                {
+                    m_NativeSession.TrackableApi.Release(trackableHandle);
+                }
             }
 
             m_NativeSession.TrackableListApi.Destroy(listHandle);
@@ -186,7 +204,7 @@ namespace GoogleARCoreInternal
                 IntPtr lightEstimateHandle);
 
             [AndroidImport(ApiConstants.ARCoreNativeApi)]
-            public static extern void ArFrame_acquireImageMetadata(IntPtr sessionHandle, IntPtr frameHandle,
+            public static extern ApiArStatus ArFrame_acquireImageMetadata(IntPtr sessionHandle, IntPtr frameHandle,
                 ref IntPtr outMetadata);
 #pragma warning restore 626
         }
