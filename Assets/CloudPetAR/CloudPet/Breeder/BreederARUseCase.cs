@@ -31,6 +31,7 @@ namespace CloudPet.Pet
             _anchorModel = cloudAnchorModel;
 
             _planeDetectionGesture.Initialize();
+            SelectPlaneEnable(true);
         }
 
         /// <summary>
