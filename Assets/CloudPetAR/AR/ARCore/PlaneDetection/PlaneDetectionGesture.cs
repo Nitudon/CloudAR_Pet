@@ -50,6 +50,10 @@ namespace CloudPet.AR
             _detectedPose = new Subject<Tuple<bool, TrackableHit>>();
         }
 
+        /// <summary>
+        /// 毎フレームの平面検知処理のオンオフ
+        /// </summary>
+        /// <param name="active"></param>
         public void SetDetectionActive(bool active)
         {
             if(active)
@@ -78,6 +82,10 @@ namespace CloudPet.AR
             Dispose();
         }
 
+        /// <summary>
+        /// タップ位置からのレイキャストで平面検知
+        /// </summary>
+        /// <returns></returns>
         private Tuple<bool, TrackableHit> TouchPlaneDetect()
         {
             if (Input.touchCount <= 0)
@@ -91,6 +99,11 @@ namespace CloudPet.AR
             return RayCastPose(touch.position);
         }
 
+        /// <summary>
+        /// レイを使って平面検知
+        /// </summary>
+        /// <param name="position"></param>
+        /// <returns></returns>
         private Tuple<bool, TrackableHit> RayCastPose(Vector2 position)
         {
 

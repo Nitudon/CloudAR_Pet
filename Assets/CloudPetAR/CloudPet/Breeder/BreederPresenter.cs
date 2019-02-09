@@ -30,6 +30,14 @@ namespace CloudPet.Pet
         private BreederActivatorUseCase _activatorUseCase;
         private BreederARUseCase _arUseCase;
 
+        /// <summary>
+        /// 現在出してるペット
+        /// </summary>
+        private PetPresenter _petPresenter;
+        public PetPresenter PetPresenter => _petPresenter;
+
+        public PetInfo OwnPet => _petPresenter.Model.Info.Value;
+
         private CompositeDisposable _disposable = new CompositeDisposable();
 
         public override void Initialize()
@@ -120,8 +128,8 @@ namespace CloudPet.Pet
                 }
 
                 PetPresenter pet = PetPresenter.Create(_petRoot, _cloudAnchorSystem.AnchorModel.PlacedAnchorRoot.Value.transform.position);
+                _petPresenter = pet;
 
-                _model.SetPet(pet);
                 _model.SetMode(UIMode.Breed);
             };
         }

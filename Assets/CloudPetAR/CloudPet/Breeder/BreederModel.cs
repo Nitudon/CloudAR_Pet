@@ -31,23 +31,10 @@ namespace CloudPet.Pet
         private Subject<ActivateInfo> _onActivatePet = new Subject<ActivateInfo>();
         public Subject<ActivateInfo> OnActivatePet => _onActivatePet;
 
-        /// <summary>
-        /// 現在出してるペット
-        /// </summary>
-        private PetPresenter _petPresenter;
-        public PetPresenter PetPresenter => _petPresenter;
-
-        public PetInfo OwnPet => _petPresenter.Model.Info.Value;
-
         public void SetBreeder(string id, string name)
         {
             _id = id;
             _name = name;
-        }
-
-        public void SetPet(PetPresenter pet)
-        {
-            _petPresenter = pet;
         }
 
         public void SetMode(UIMode mode)
