@@ -40,8 +40,19 @@ namespace CloudPet.Pet
             _activatorUseCase = new BreederActivatorUseCase(_model, _cloudAnchorSystem);
             _arUseCase = new BreederARUseCase(_planeDetectionGesture, _cloudAnchorSystem.AnchorModel);
 
+            if (PhotonNetwork.isNonMasterClientInRoom)
+            {
+                _cloudAnchorSystem.SetResolverMode();
+            }
+            else
+            {
+                _cloudAnchorSystem.SetHostMode();
+            }
+
             Bind();
             SetEvent();
+
+            _model.SetMode(UIMode.Anchor);
         }
 
         public void Dispose()
@@ -65,8 +76,8 @@ namespace CloudPet.Pet
                 .AddTo(_disposable);
 
             _arUseCase
-                .TrackingHitInfoEveryChanged
-                .Where(_ => _model.Mode.Value == UIMode.Anchor && _cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting)
+                .TrackingHitInfo
+                .Where(_ => _model.Mode.Value == UIMode.Anchor)
                 .Subscribe(info =>
                 {
                     _breederUIView.AnchorSystemUIView.AnchorSettingButton.SetEnable(info.Item1);

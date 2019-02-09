@@ -30,7 +30,6 @@ namespace CloudPet.Pet
             _planeDetectionGesture = planeDetectionGesture;
             _anchorModel = cloudAnchorModel;
 
-            _planeDetectionGesture.Initialize();
             SelectPlaneEnable(true);
         }
 
@@ -47,15 +46,15 @@ namespace CloudPet.Pet
         /// <summary>
         /// 平面検知情報の購読用ストリーム、検知したかどうかとその検知した地点を返す
         /// </summary>
-        public IReadOnlyReactiveProperty<Tuple<bool, Anchor>> TrackingHitInfoEveryChanged
+        public IObservable<Tuple<bool, Anchor>> TrackingHitInfo
         {
             get
             {
                 return _planeDetectionGesture
-                        .DetectedPose
-                        .Where(info => !_planeDetectionGesture.IsDestroyed && info != null)
-                        .Select(info => new Tuple<bool, Anchor>(info.Item1, info.Item1 ? info.Item2.Trackable.CreateAnchor(info.Item2.Pose) : null))
-                        .ToReactiveProperty();
+                    .DetectedPose
+                    .Where(info => !_planeDetectionGesture.IsDestroyed && info != null)
+                    .Select(info => new Tuple<bool, Anchor>(info.Item1,
+                        info.Item1 ? info.Item2.Trackable.CreateAnchor(info.Item2.Pose) : null));
             }
         }
 #endif
@@ -64,15 +63,14 @@ namespace CloudPet.Pet
         /// <summary>
         /// 平面検知情報の購読用ストリーム、検知したかどうかとその検知した地点を返す
         /// </summary>
-        public IReadOnlyReactiveProperty<Tuple<bool, UnityARUserAnchorComponent>> TrackingHitInfoEveryChanged
+        public IObservable<Tuple<bool, UnityARUserAnchorComponent>> TrackingHitInfoEveryChanged
         {
             get
             {
                 return _planeDetectionGesture
                     .DetectedPose
                     .Where(info => !_planeDetectionGesture.IsDestroyed && info != null)
-                    .Select(info => new Tuple<bool, UnityARUserAnchorComponent>(info.Item1, info.Item1 ? _iosARHelper.CreateAnchor(info.Item2) : null))
-                    .ToReactiveProperty();
+                    .Select(info => new Tuple<bool, UnityARUserAnchorComponent>(info.Item1, info.Item1 ? _iosARHelper.CreateAnchor(info.Item2) : null));
             }
         }
 #endif

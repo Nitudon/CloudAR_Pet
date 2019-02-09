@@ -5,6 +5,9 @@ using UdonLib.Commons;
 using UniRx;
 using GoogleARCore;
 using GoogleARCore.Examples.CloudAnchor;
+#if UNITY_EDITOR
+using Input = GoogleARCore.InstantPreviewInput;
+#endif
 
 namespace CloudPet.AR
 {
@@ -30,26 +33,32 @@ namespace CloudPet.AR
 
         private static readonly Vector2 DETECT_RAY_CENTER = Vector2.zero;
 
-        private ReactiveProperty<Tuple<bool, TrackableHit>> _detectedPose;
-        public IReadOnlyReactiveProperty<Tuple<bool, TrackableHit>> DetectedPose => _detectedPose;
+        private Subject<Tuple<bool, TrackableHit>> _detectedPose;
+        public IObservable<Tuple<bool, TrackableHit>> DetectedPose => _detectedPose;
 
-        public Subject<Unit> OnTouched { get; private set; }
+        private Subject<Unit> _onTouched;
+        public IObservable<Unit> OnTouched => _onTouched;
 
         private IDisposable _touchDetector;
 
-
         public override void Initialize()
         {
+#if !UNITY_EDITOR
             Input.multiTouchEnabled = false;
-            OnTouched = new Subject<Unit>();
-            _detectedPose = new ReactiveProperty<Tuple<bool, TrackableHit>>();
+#endif
+            _onTouched = new Subject<Unit>();
+            _detectedPose = new Subject<Tuple<bool, TrackableHit>>();
         }
 
         public void SetDetectionActive(bool active)
         {
             if(active)
             {
-                _touchDetector = Observable.EveryFixedUpdate().Subscribe(_ => _detectedPose.Value = RayCastPose(DETECT_RAY_CENTER)).AddTo(gameObject);
+                _touchDetector =
+                    Observable
+                        .EveryFixedUpdate()
+                        .Subscribe(_ => _detectedPose.OnNext(RayCastPose(DETECT_RAY_CENTER)))
+                        .AddTo(gameObject);
             }
             else
             {
@@ -59,7 +68,7 @@ namespace CloudPet.AR
 
         public void Dispose()
         {
-            OnTouched?.Dispose();
+            _onTouched?.Dispose();
             _detectedPose?.Dispose();
             _touchDetector?.Dispose();
         }
@@ -77,7 +86,7 @@ namespace CloudPet.AR
             }
 
             Touch touch = Input.GetTouch(0);
-            OnTouched.OnNext(Unit.Default);
+            _onTouched.OnNext(Unit.Default);
 
             return RayCastPose(touch.position);
         }
