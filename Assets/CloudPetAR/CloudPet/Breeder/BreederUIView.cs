@@ -35,7 +35,7 @@ namespace CloudPet.Pet
         {
             _anchorSystemView.SetEnable(mode == UIMode.Anchor);
             _anchorSystemView.SetAnchorSettingDescription(mode);
-            _petSystemView.SetEnable(mode == UIMode.Breed);
+            _petSystemView.SetEnable(mode == UIMode.Breed || mode == UIMode.Activate);
 
             switch (mode)
             {
@@ -45,11 +45,11 @@ namespace CloudPet.Pet
                     break;
                 case UIMode.Anchor:
                     _warningUI.SetVisible(true);
-                    _warningDescription.text = "部屋の基準点を検出します。\n平らな所を向けて部屋に入るボタンをおしてください。";
+                    _warningDescription.text = "部屋の基準点を検出します。\n平らな場所で部屋に入るボタンをおしてください。";
                     break;
                 case UIMode.Activate:
                     _warningUI.SetVisible(true);
-                    _warningDescription.text = "ペットを呼び出す位置を検出します。\n平らな所を向けてペットを出すボタンをおしてください。";
+                    _warningDescription.text = "ペットを呼び出す位置を検出します。\n平らな場所でペットを出すボタンをおしてください。";
                     break;
             }
         }

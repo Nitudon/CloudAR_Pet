@@ -28,7 +28,6 @@ namespace CloudPet.Pet
         public void ActivatePet(Transform petRoot, ActivateInfo info)
         {
             var pet = PetPresenter.Create(petRoot);
-            _model.SetPet(pet);
 
             pet.SetPosition(info.AnchoredWorldPosition);
         }
