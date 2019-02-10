@@ -1901,7 +1901,7 @@ Transform:
   m_GameObject: {fileID: 1330903629621276}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4690836612418012}
   m_Father: {fileID: 0}
@@ -1933,6 +1933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animationController: {fileID: 114591919465659368}
+  _animator: {fileID: 0}
 --- !u!114 &114591919465659368
 MonoBehaviour:
   m_ObjectHideFlags: 0
