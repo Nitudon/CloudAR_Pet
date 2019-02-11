@@ -33,13 +33,17 @@ namespace CloudPet.AR
 
         private static readonly Vector2 DETECT_RAY_CENTER = Vector2.zero;
 
-        private Subject<Tuple<bool, TrackableHit>> _detectedPose;
-        public IObservable<Tuple<bool, TrackableHit>> DetectedPose => _detectedPose;
+        private Subject<Tuple<bool, TrackableHit>> _automaticCenterTrackingDetectedPose;
+        public IObservable<Tuple<bool, TrackableHit>> AutomaticCenterTrackingDetectedPose => _automaticCenterTrackingDetectedPose;
+
+        private Subject<Tuple<bool, TrackableHit>> _manualTouchTrackingDetectedPose;
+        public IObservable<Tuple<bool, TrackableHit>> ManualTouchTrackingDetectedPose => _manualTouchTrackingDetectedPose;
 
         private Subject<Unit> _onTouched;
         public IObservable<Unit> OnTouched => _onTouched;
 
-        private IDisposable _touchDetector;
+        private IDisposable _automaticCenterTrackingDetector;
+        private IDisposable _manualTouchTrackingDetector;
 
         public override void Initialize()
         {
@@ -47,34 +51,58 @@ namespace CloudPet.AR
             Input.multiTouchEnabled = false;
 #endif
             _onTouched = new Subject<Unit>();
-            _detectedPose = new Subject<Tuple<bool, TrackableHit>>();
+            _automaticCenterTrackingDetector = new Subject<Tuple<bool, TrackableHit>>();
+            _manualTouchTrackingDetector = new Subject<Tuple<bool, TrackableHit>>();
         }
 
         /// <summary>
         /// 毎フレームの平面検知処理のオンオフ
         /// </summary>
         /// <param name="active"></param>
-        public void SetDetectionActive(bool active)
+        public void SetAutomaticDetectionActive(bool active)
         {
             if(active)
             {
-                _touchDetector =
+                _automaticCenterTrackingDetector =
                     Observable
                         .EveryFixedUpdate()
-                        .Subscribe(_ => _detectedPose.OnNext(RayCastPose(DETECT_RAY_CENTER)))
+                        .Subscribe(_ => _automaticCenterTrackingDetectedPose.OnNext(RayCastPose(DETECT_RAY_CENTER)))
                         .AddTo(gameObject);
             }
             else
             {
-                _touchDetector.Dispose();
+                _automaticCenterTrackingDetector.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// 画面タップによる平面検知処理のオンオフ
+        /// </summary>
+        /// <param name="active"></param>
+        public void SetManualDetectionActive(bool active)
+        {
+            if (active)
+            {
+                _manualTouchTrackingDetector =
+                    Observable
+                        .EveryFixedUpdate()
+                        .Where(_ => Input.touchCount >= 1)
+                        .Subscribe(_ => _manualTouchTrackingDetectedPose.OnNext(RayCastPose(Input.GetTouch(0).position)))
+                        .AddTo(gameObject);
+            }
+            else
+            {
+                _manualTouchTrackingDetector.Dispose();
             }
         }
 
         public void Dispose()
         {
             _onTouched?.Dispose();
-            _detectedPose?.Dispose();
-            _touchDetector?.Dispose();
+            _automaticCenterTrackingDetectedPose?.Dispose();
+            _manualTouchTrackingDetectedPose?.Dispose();
+            _automaticCenterTrackingDetector?.Dispose();
+            _manualTouchTrackingDetector?.Dispose();
         }
 
         public void OnDestroy()

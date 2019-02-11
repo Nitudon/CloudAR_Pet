@@ -38,6 +38,8 @@ namespace CloudPet.Pet
 
         public PetInfo OwnPet => _petPresenter.Model.Info.Value;
 
+        private IDisposable _automaticARDisposable;
+        private IDisposable _manualARDisposable;
         private CompositeDisposable _disposable = new CompositeDisposable();
 
         public override void Initialize()
@@ -57,7 +59,8 @@ namespace CloudPet.Pet
                 _cloudAnchorSystem.SetHostMode();
             }
 
-            Bind();
+            BindCommon();
+            BindAutomaticTrackingUseCase();
             SetEvent();
 
             _model.SetMode(UIMode.Anchor);
@@ -68,7 +71,7 @@ namespace CloudPet.Pet
             _disposable?.Dispose();
         }
 
-        private void Bind()
+        private void BindCommon()
         {
             _model
                 .Mode
@@ -82,21 +85,44 @@ namespace CloudPet.Pet
                 .Subscribe(info => _activatorUseCase.ActivatePet(_petRoot, info))
                 .AddTo(gameObject)
                 .AddTo(_disposable);
+        }
 
-            _arUseCase
-                .TrackingHitInfo
-                .Where(_ => _model.Mode.Value == UIMode.Anchor)
-                .Subscribe(info =>
-                {
-                    _breederUIView.AnchorSystemUIView.AnchorSettingButton.SetEnable(info.Item1);
-
-                    if (info.Item1)
+        private void BindAutomaticTrackingUseCase()
+        {
+            _automaticARDisposable =
+                _arUseCase
+                    .AutomaticCenterTrackingHitInfo
+                    .Where(_ => _model.Mode.Value == UIMode.Anchor)
+                    .Subscribe(info =>
                     {
-                        _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
-                    }
-                })
-                .AddTo(gameObject)
-                .AddTo(_disposable);
+                      _breederUIView.AnchorSystemUIView.AnchorSettingButton.SetEnable(info.Item1);
+
+                        if (info.Item1)
+                        {
+                            _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
+                        }
+                    })
+                    .AddTo(gameObject)
+                    .AddTo(_disposable);
+        }
+
+        private void BindManualTrackingUseCase()
+        {
+            _automaticARDisposable =
+                _arUseCase
+                    .ManualTouchTrackingHitInfo
+                    .Where(_ => _model.Mode.Value == UIMode.Anchor)
+                    .Subscribe(info =>
+                    {
+                        _breederUIView.AnchorSystemUIView.AnchorSettingButton.SetEnable(info.Item1);
+
+                        if (info.Item1)
+                        {
+                            _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
+                        }
+                    })
+                    .AddTo(gameObject)
+                    .AddTo(_disposable);
         }
 
         private void SetEvent()
