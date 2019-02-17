@@ -16,9 +16,6 @@ namespace CloudPet.Pet
         private PlaneDetectionGesture _planeDetectionGesture;
 
         [SerializeField]
-        private CloudAnchorSystem _cloudAnchorSystem;
-
-        [SerializeField]
         private Transform _petRoot;
 
         [SerializeField]
@@ -47,16 +44,16 @@ namespace CloudPet.Pet
             _model = new BreederModel();
             _breederUIView.Initialize();
 
-            _activatorUseCase = new BreederActivatorUseCase(_model, _cloudAnchorSystem);
-            _arUseCase = new BreederARUseCase(_planeDetectionGesture, _cloudAnchorSystem.AnchorModel);
+            _activatorUseCase = new BreederActivatorUseCase(_model);
+            _arUseCase = new BreederARUseCase(_planeDetectionGesture);
 
             if (PhotonNetwork.isNonMasterClientInRoom)
             {
-                _cloudAnchorSystem.SetResolverMode();
+                CloudAnchorManager.Instance.SetResolverMode();
             }
             else
             {
-                _cloudAnchorSystem.SetHostMode();
+                CloudAnchorManager.Instance.SetHostMode();
             }
 
             BindCommon();
@@ -99,7 +96,7 @@ namespace CloudPet.Pet
 
                         if (info.Item1)
                         {
-                            _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
+                            CloudAnchorManager.Instance.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
                         }
                     })
                     .AddTo(gameObject)
@@ -118,7 +115,7 @@ namespace CloudPet.Pet
 
                         if (info.Item1)
                         {
-                            _cloudAnchorSystem.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
+                            CloudAnchorManager.Instance.AnchorModel.SetPlacedAnchorRoot(info.Item1, info.Item2);
                         }
                     })
                     .AddTo(gameObject)
@@ -129,18 +126,18 @@ namespace CloudPet.Pet
         {
             _breederUIView.AnchorSystemUIView.AnchorSettingButton.onClickedCallback += () =>
             {
-                if (!_cloudAnchorSystem.AnchorModel.IsTrackable.Value)
+                if (!CloudAnchorManager.Instance.AnchorModel.IsTrackable.Value)
                 {
                     return;
                 }
 
-                if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Hosting)
+                if (CloudAnchorManager.Instance.AnchorModel.CloudMode == ApplicationMode.Hosting)
                 {
-                    _cloudAnchorSystem.HostLastPlacedAnchor();
+                    CloudAnchorManager.Instance.HostLastPlacedAnchor();
                 }
-                else if (_cloudAnchorSystem.AnchorModel.CloudMode == ApplicationMode.Resolving)
+                else if (CloudAnchorManager.Instance.AnchorModel.CloudMode == ApplicationMode.Resolving)
                 {
-                    _cloudAnchorSystem.ResolveAnchorFromId(RoomManager.Instance.AnchorId);
+                    CloudAnchorManager.Instance.ResolveAnchorFromId(RoomManager.Instance.AnchorId);
                 }
 
                 _model.SetMode(UIMode.Activate);
@@ -148,12 +145,12 @@ namespace CloudPet.Pet
 
             _breederUIView.PetSystemUIView.PetActivationButton.onClickedCallback += () =>
             {
-                if (!_cloudAnchorSystem.AnchorModel.IsTrackable.Value)
+                if (!CloudAnchorManager.Instance.AnchorModel.IsTrackable.Value)
                 {
                     return;
                 }
 
-                PetPresenter pet = PetPresenter.Create(_petRoot, _cloudAnchorSystem.AnchorModel.PlacedAnchorRoot.Value.transform.position);
+                PetPresenter pet = PetPresenter.Create(_petRoot, CloudAnchorManager.Instance.AnchorModel.PlacedAnchorRoot.Value.transform.position);
                 _petPresenter = pet;
 
                 _model.SetMode(UIMode.Breed);

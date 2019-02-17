@@ -12,21 +12,17 @@ namespace CloudPet.AR
         [SerializeField]
         private RoomConnector _roomConnector;
 
-        [SerializeField]
-        private CloudAnchorSystem _cloudAnchorController;
-
         public override async UniTask Initialize()
         {
             await _roomConnector.Initialize();
-            _cloudAnchorController.Initialize();
 
             if(PhotonNetwork.isNonMasterClientInRoom)
             {
-                _cloudAnchorController.SetResolverMode();
+                CloudAnchorManager.Instance.SetResolverMode();
             }
             else
             {
-                _cloudAnchorController.SetHostMode();
+                CloudAnchorManager.Instance.SetHostMode();
             }
         }
     }

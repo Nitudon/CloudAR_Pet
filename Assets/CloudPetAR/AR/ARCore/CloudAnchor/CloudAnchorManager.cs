@@ -12,13 +12,10 @@
     /// <summary>
     /// Controller for the Cloud Anchor Example.
     /// </summary>
-    public class CloudAnchorSystem : InitializableMono
+    public class CloudAnchorManager : UdonBehaviourSingleton<CloudAnchorManager>
     {
         private CloudAnchorModel _anchorModel = new CloudAnchorModel();
         public CloudAnchorModel AnchorModel => _anchorModel;
-
-        [SerializeField]
-        private CloudAnchorUIController UIController;
 
 #if UNITY_ANDROID
         [Header("ARCore")]
@@ -27,9 +24,6 @@
         private Transform ARCoreRoot;
 #endif
         private bool _isHost;
-
-        private const string LOOK_BACK_IP = "127.0.0.1";
-        private const float OBJECT_ROTATION_OFFSET = 180.0f;
 
         public override void Initialize()
         {
@@ -54,7 +48,6 @@
             }
 
             _anchorModel.SetMode(ApplicationMode.Hosting);
-            UIController.ShowHostingModeBegin();
         }
 
         /// <summary>
@@ -71,23 +64,6 @@
             }
 
             _anchorModel.SetMode(ApplicationMode.Resolving);
-            UIController.ShowResolvingModeBegin();
-        }
-
-        /// <summary>
-        /// Handles the user intent to resolve the cloud anchor associated with a room they have typed into the UI.
-        /// </summary>
-        public void OnResolveRoomClick()
-        {
-            var roomToResolve = UIController.GetRoomInputValue();
-            if (roomToResolve == 0)
-            {
-                UIController.ShowResolvingModeBegin("Invalid room code.");
-                return;
-            }
-
-            UIController.ShowResolvingModeAttemptingResolve();
-            // Resolve Anchor 処理
         }
 
         public void PlaceAnchor()
@@ -105,18 +81,15 @@
 #else
             var anchor = (UnityEngine.XR.iOS.UnityARUserAnchorComponent)_anchorModel.PlacedAnchorRoot.Value;
 #endif
-            UIController.ShowHostingModeAttemptingHost();
             XPSession.CreateCloudAnchor(anchor).ThenAction(result =>
             {
                 if (result.Response != CloudServiceResponse.Success)
                 {
-                    UIController.ShowHostingModeBegin(
-                        string.Format("Failed to host cloud anchor: {0}", result.Response));
+                    InstantLog.StringLogError("Failed to host anchor");
                     return;
                 }
 
                 _anchorModel.SetPlacedAnchorRoot(true, result.Anchor);
-                UIController.ShowHostingModeBegin("Cloud anchor was created and saved.");
             });
         }
 
@@ -126,7 +99,7 @@
             {
                 if (result.Response != CloudServiceResponse.Success)
                 {
-                    UIController.ShowResolvingModeBegin(string.Format("Resolving Error: {0}.", result.Response));
+                    InstantLog.StringLogError("Failed to host anchor");
                     return;
                 }
 

@@ -10,14 +10,11 @@ namespace CloudPet.Pet
     /// </summary>
     public class BreederActivatorUseCase
     {
-        private CloudAnchorSystem _anchorSystem;
-
         private readonly BreederModel _model;
 
-        public BreederActivatorUseCase(BreederModel model, CloudAnchorSystem cloudAnchorSystem)
+        public BreederActivatorUseCase(BreederModel model)
         {
             _model = model;
-            _anchorSystem = cloudAnchorSystem;
         }
 
         /// <summary>

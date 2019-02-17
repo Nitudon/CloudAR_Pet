@@ -19,16 +19,13 @@ namespace CloudPet.Pet
     {
         private PlaneDetectionGesture _planeDetectionGesture;
 
-        private CloudAnchorModel _anchorModel;
-
 #if UNITY_IOS
         private ARKitHelper _iosARHelper = new ARKitHelper();
 #endif
 
-        public BreederARUseCase(PlaneDetectionGesture planeDetectionGesture, CloudAnchorModel cloudAnchorModel)
+        public BreederARUseCase(PlaneDetectionGesture planeDetectionGesture)
         {
             _planeDetectionGesture = planeDetectionGesture;
-            _anchorModel = cloudAnchorModel;
         }
 
         /// <summary>
@@ -106,7 +103,7 @@ namespace CloudPet.Pet
                 return _planeDetectionGesture
                         .AutomaticCenterTrackingDetectedPose
                         .Where(_ => !_planeDetectionGesture.IsDestroyed)
-                        .Select(info => new ActivateInfo(info.Item1, _anchorModel.CurrentAnchor, info.Item2.Pose.position, info.Item2.Pose.rotation))
+                        .Select(info => new ActivateInfo(info.Item1, CloudAnchorManager.Instance.AnchorModel.CurrentAnchor, info.Item2.Pose.position, info.Item2.Pose.rotation))
                         .ToReactiveProperty();
             }
         }
