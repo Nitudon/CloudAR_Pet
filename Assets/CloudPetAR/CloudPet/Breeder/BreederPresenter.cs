@@ -3,6 +3,7 @@ using UniRx;
 using UdonLib.Commons;
 using UnityEngine;
 using CloudPet.AR;
+using CloudPet.Commons;
 using CloudPet.Network;
 
 namespace CloudPet.Pet
@@ -26,6 +27,8 @@ namespace CloudPet.Pet
 
         private BreederActivatorUseCase _activatorUseCase;
         private BreederARUseCase _arUseCase;
+
+        private PhotonView _photonView;
 
         /// <summary>
         /// 現在出してるペット
@@ -74,12 +77,6 @@ namespace CloudPet.Pet
                 .Mode
                 .Where(mode => mode != UIMode.None)
                 .Subscribe(_breederUIView.SetMode)
-                .AddTo(gameObject)
-                .AddTo(_disposable);
-
-            _model
-                .OnActivatePet
-                .Subscribe(info => _activatorUseCase.ActivatePet(_petRoot, info))
                 .AddTo(gameObject)
                 .AddTo(_disposable);
         }
@@ -150,10 +147,18 @@ namespace CloudPet.Pet
                     return;
                 }
 
-                PetPresenter pet = PetPresenter.Create(_petRoot, CloudAnchorManager.Instance.AnchorModel.PlacedAnchorRoot.Value.transform.position);
+                var pet = _activatorUseCase.ActivatePet(_petRoot, CloudAnchorManager.Instance.CurrentAnchor.position, Vector3.forward);
                 _petPresenter = pet;
 
-                _model.SetMode(UIMode.Breed);
+                Vector3 petWorldPosition =
+                    AnchorPositionUtility.GetWorldPointFromAnchorPoint(CloudAnchorManager.Instance.CurrentAnchor,
+                        pet.position);
+                Vector3 petWorldForward =
+                    AnchorPositionUtility.GetWorldPointFromAnchorPoint(CloudAnchorManager.Instance.CurrentAnchor,
+                        pet.transform.forward);
+                CloudTransformInfo petWorldTransformInfo = new CloudTransformInfo(petWorldPosition, petWorldForward);
+
+                _photonView.RPC(BreederDefine.GetBreederRPCMethod(BreederDefine.BreederRPC.PetActivate), PhotonTargets.Others, petWorldTransformInfo);
             };
         }
 
@@ -161,5 +166,18 @@ namespace CloudPet.Pet
         {
             Dispose();
         }
+
+        #region RPC method
+
+        [PunRPC]
+        public void RPCPetActivate(CloudTransformInfo info)
+        {
+            var anchorTransform =
+                AnchorPositionUtility.GetAnchorTransform(CloudAnchorManager.Instance.CurrentAnchor, info);
+            var pet = _activatorUseCase.ActivatePet(_petRoot, anchorTransform.Item1, anchorTransform.Item2);
+            _petPresenter = pet;
+        }
+
+        #endregion
     }
 }

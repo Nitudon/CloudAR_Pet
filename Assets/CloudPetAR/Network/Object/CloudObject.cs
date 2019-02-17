@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CloudPet.AR;
 using CloudPet.Commons;
 using UdonLib.Commons;
 using UnityEngine;
@@ -11,7 +12,8 @@ namespace CloudPet.Network
         [PunRPC]
         public void RPCTranslate(CloudTransformInfo info)
         {
-            transform.position = AnchorPositionUtility.GetAnchorPointFromWorldPoint(Manager, info.Position);
+            transform.position = AnchorPositionUtility.GetAnchorPointFromWorldPoint(CloudAnchorManager.Instance.AnchorModel.CurrentAnchor, info.Position);
+            transform.LookAt(AnchorPositionUtility.GetAnchorPointFromWorldPoint(CloudAnchorManager.Instance.AnchorModel.CurrentAnchor, info.Forward));
         }
     }
 

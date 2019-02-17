@@ -22,11 +22,15 @@ namespace CloudPet.Pet
         /// </summary>
         /// <param name="petRoot">ペットをぶらさげるRoot</param>
         /// <param name="info">ペットを呼んだ際の通知用info</param>
-        public void ActivatePet(Transform petRoot, ActivateInfo info)
+        public PetPresenter ActivatePet(Transform petRoot, Vector3 position, Vector3 forward)
         {
             var pet = PetPresenter.Create(petRoot);
 
-            pet.SetPosition(info.AnchoredWorldPosition);
+            pet.SetPosition(position);
+            pet.transform.LookAt(forward);
+
+            _model.SetMode(UIMode.Breed);
+            return pet;
         }
     }
 }

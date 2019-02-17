@@ -93,19 +93,5 @@ namespace CloudPet.Pet
             }
         }
 #endif
-        /// <summary>
-        /// ペット召喚情報の購読用ストリーム
-        /// </summary>
-        public IReadOnlyReactiveProperty<ActivateInfo> ActivateInfoEveryChanged
-        {
-            get
-            {
-                return _planeDetectionGesture
-                        .AutomaticCenterTrackingDetectedPose
-                        .Where(_ => !_planeDetectionGesture.IsDestroyed)
-                        .Select(info => new ActivateInfo(info.Item1, CloudAnchorManager.Instance.AnchorModel.CurrentAnchor, info.Item2.Pose.position, info.Item2.Pose.rotation))
-                        .ToReactiveProperty();
-            }
-        }
     }
 }

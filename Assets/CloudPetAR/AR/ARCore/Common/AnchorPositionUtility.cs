@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using CloudPet.Network;
+using UnityEngine;
 
 namespace CloudPet.Commons
 {
     public static class AnchorPositionUtility
     {
         private static readonly Vector3 SCALE_MATRIX = Vector3.one;
+
+        public static Tuple<Vector3, Vector3> GetAnchorTransform(Pose anchor, CloudTransformInfo info)
+        {
+            return new Tuple<Vector3, Vector3>(GetAnchorPointFromWorldPoint(anchor, info.Position), GetAnchorPointFromWorldPoint(anchor, info.Forward));
+        }
 
         public static Vector3 GetAnchorPointFromWorldPoint(Transform anchor, Vector3 position)
         {

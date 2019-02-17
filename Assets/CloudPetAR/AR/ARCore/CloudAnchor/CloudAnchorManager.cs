@@ -17,6 +17,8 @@
         private CloudAnchorModel _anchorModel = new CloudAnchorModel();
         public CloudAnchorModel AnchorModel => _anchorModel;
 
+        public Pose CurrentAnchor => _anchorModel.CurrentAnchor;
+
 #if UNITY_ANDROID
         [Header("ARCore")]
 
@@ -104,7 +106,6 @@
                 }
 
                 _anchorModel.SetResolvedAnchorInfo(result.Anchor);
-                UIController.ShowResolvingModeSuccess();
             }));
         }
 
@@ -124,7 +125,6 @@
             }
 
             _anchorModel.SetResolvedAnchorInfo(null);
-            UIController.ShowReadyMode();
         }
 
         /// <summary>

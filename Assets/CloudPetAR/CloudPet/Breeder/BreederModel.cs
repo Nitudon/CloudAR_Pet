@@ -25,12 +25,6 @@ namespace CloudPet.Pet
         private ReactiveProperty<UIMode> _mode = new ReactiveProperty<UIMode>();
         public IReadOnlyReactiveProperty<UIMode> Mode => _mode;
 
-        /// <summary>
-        /// ブリーダーのペット生成時の通知
-        /// </summary>
-        private Subject<ActivateInfo> _onActivatePet = new Subject<ActivateInfo>();
-        public Subject<ActivateInfo> OnActivatePet => _onActivatePet;
-
         public void SetBreeder(string id, string name)
         {
             _id = id;
