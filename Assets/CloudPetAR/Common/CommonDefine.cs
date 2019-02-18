@@ -20,7 +20,7 @@
                     return "CloudPetAR_Android";
                 #endif
                 #if UNITY_IOS
-                    return "CloudPetAR_iOS;
+                    return "CloudPetAR_iOS";
                 #endif
                 default:
                     return string.Empty;
