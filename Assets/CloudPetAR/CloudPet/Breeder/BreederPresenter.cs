@@ -11,7 +11,7 @@ namespace CloudPet.Pet
     /// <summary>
     /// ブリーダーの各ロジックのバインド
     /// </summary>
-    public class BreederPresenter : InitializableMono, IDisposable
+    public class BreederPresenter : CloudObject, IDisposable
     {
         [SerializeField]
         private PlaneDetectionGesture _planeDetectionGesture;
@@ -158,7 +158,7 @@ namespace CloudPet.Pet
                         pet.transform.forward);
                 CloudTransformInfo petWorldTransformInfo = new CloudTransformInfo(petWorldPosition, petWorldForward);
 
-                _photonView.RPC(BreederDefine.GetBreederRPCMethod(BreederDefine.BreederRPC.PetActivate), PhotonTargets.Others, petWorldTransformInfo);
+                _photonView.RPC(RPCDefine.BreederRPC.GetRPCMethod(RPCDefine.BreederRPC.RPCEnum.PetActivate), PhotonTargets.Others, petWorldTransformInfo);
             };
         }
 
