@@ -28,8 +28,6 @@ namespace CloudPet.Pet
         private BreederActivatorUseCase _activatorUseCase;
         private BreederARUseCase _arUseCase;
 
-        private PhotonView _photonView;
-
         /// <summary>
         /// 現在出してるペット
         /// </summary>
