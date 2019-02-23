@@ -19,9 +19,9 @@ class BitriseUnity
         if (tools.inputs.buildPlatform == BitriseTools.BuildPlatform.android)
         {
             EditorPrefs.SetString("AndroidSdkRoot", tools.inputs.androidSdkPath);
+            EditorPrefs.SetString("JdkPath", tools.inputs.androidJdkPath);
             buildPlayerOptions.target = BuildTarget.Android;
 
-            //set jdk path?
             PlayerSettings.Android.keystoreName = tools.inputs.androidKeystorePath;
             PlayerSettings.Android.keystorePass = tools.inputs.androidKeystorePassword;
             PlayerSettings.Android.keyaliasName = tools.inputs.androidKeystoreAlias;
@@ -69,6 +69,7 @@ public class BitriseTools
     public class Inputs
     {
         public string androidSdkPath;
+        public string androidJdkPath;
         public string buildOutput;
         public string androidKeystorePath;
         public string androidKeystoreAlias;
@@ -85,6 +86,8 @@ public class BitriseTools
                     buildPlatform = (BuildPlatform)Enum.Parse(typeof(BuildPlatform), cmdArgs[i + 1]);
                 if (cmdArgs[i].Equals("-androidSdkPath"))
                     androidSdkPath = cmdArgs[i + 1];
+                if (cmdArgs[i].Equals("-androidJdkPath"))
+                    androidJdkPath = cmdArgs[i + 1];
                 if (cmdArgs[i].Equals("-buildOutput"))
                     buildOutput = cmdArgs[i + 1];
                 if (cmdArgs[i].Equals("-androidKeystorePath"))
@@ -128,6 +131,7 @@ public class BitriseTools
         log.Print(" -buildOutput: " + inputs.buildOutput);
         log.Print(" -buildPlatform: " + inputs.buildPlatform.ToString());
         log.Print(" -androidSdkPath: " + inputs.androidSdkPath);
+        log.Print(" -androidJdkPath: " + inputs.androidJdkPath);
         log.Print(" -androidKeystorePath: " + inputs.androidKeystorePath);
         log.Print(" -androidKeystoreAlias: " + (string.IsNullOrEmpty(inputs.androidKeystoreAlias) ? "" : "***"));
         log.Print(" -androidKeystorePassword: " + (string.IsNullOrEmpty(inputs.androidKeystorePassword) ? "" : "***"));
