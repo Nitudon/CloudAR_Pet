@@ -31,10 +31,10 @@ namespace GoogleARCoreInternal
     public class ARCoreProjectSettings
     {
         public string Version;
-        public bool IsARCoreRequired;
+        public bool IsARCoreRequired = true;
         public bool IsInstantPreviewEnabled;
         public bool IsIOSSupportEnabled;
-        public string CloudServicesApiKey;
+        public string CloudServicesApiKey = "AIzaSyBUnZnKEEBlL6261eJMJDyABooWBHCLxuM";
         public string IosCloudServicesApiKey;
         private const string k_VersionString = "V1.4.0";
         private const string k_ProjectSettingsPath = "ProjectSettings/ARCoreProjectSettings.json";
