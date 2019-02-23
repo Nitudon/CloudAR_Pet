@@ -62,7 +62,7 @@ namespace GoogleARCoreInternal
         public void Load()
         {
             Version = k_VersionString;
-            IsARCoreRequired = true;
+            IsARCoreRequired = false;
             IsInstantPreviewEnabled = true;
             CloudServicesApiKey = "AIzaSyBUnZnKEEBlL6261eJMJDyABooWBHCLxuM";
             IosCloudServicesApiKey = string.Empty;
@@ -72,7 +72,7 @@ namespace GoogleARCoreInternal
                 ARCoreProjectSettings settings = JsonUtility.FromJson<ARCoreProjectSettings>(
                     File.ReadAllText(k_ProjectSettingsPath));
                 Version = settings.Version;
-                IsARCoreRequired = settings.IsARCoreRequired;
+                IsARCoreRequired = false;
                 IsInstantPreviewEnabled = settings.IsInstantPreviewEnabled;
                 CloudServicesApiKey = settings.CloudServicesApiKey;
                 IosCloudServicesApiKey = settings.IosCloudServicesApiKey;
