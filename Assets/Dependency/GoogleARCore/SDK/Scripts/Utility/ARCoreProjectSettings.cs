@@ -34,7 +34,7 @@ namespace GoogleARCoreInternal
         public bool IsARCoreRequired = true;
         public bool IsInstantPreviewEnabled;
         public bool IsIOSSupportEnabled;
-        public string CloudServicesApiKey = "AIzaSyBUnZnKEEBlL6261eJMJDyABooWBHCLxuM";
+        public string CloudServicesApiKey;
         public string IosCloudServicesApiKey;
         private const string k_VersionString = "V1.4.0";
         private const string k_ProjectSettingsPath = "ProjectSettings/ARCoreProjectSettings.json";
@@ -51,7 +51,7 @@ namespace GoogleARCoreInternal
             Version = k_VersionString;
             IsARCoreRequired = true;
             IsInstantPreviewEnabled = true;
-            CloudServicesApiKey = string.Empty;
+            CloudServicesApiKey = "AIzaSyBUnZnKEEBlL6261eJMJDyABooWBHCLxuM";
             IosCloudServicesApiKey = string.Empty;
 
             if (File.Exists(k_ProjectSettingsPath))

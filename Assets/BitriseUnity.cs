@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using System.IO;
+using GoogleARCoreInternal;
 
 class BitriseUnity
 {
@@ -35,6 +36,8 @@ class BitriseUnity
         {
             tools.log.Fail("Invalid buildPlatform: " + tools.inputs.buildPlatform.ToString());
         }
+        
+        ARCoreProjectSettings.Instance.Load();
 
         buildPlayerOptions.options = BuildOptions.None;
         BuildPipeline.BuildPlayer(buildPlayerOptions);
