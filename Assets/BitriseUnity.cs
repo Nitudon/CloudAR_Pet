@@ -21,6 +21,7 @@ class BitriseUnity
         {
             EditorPrefs.SetString("AndroidSdkRoot", tools.inputs.androidSdkPath);
             EditorPrefs.SetString("JdkPath", tools.inputs.androidJdkPath);
+            EditorPrefs.SetString("AndroidNdkRoot", tools.inputs.androidNdkPath);
             buildPlayerOptions.target = BuildTarget.Android;
 
             PlayerSettings.Android.keystoreName = tools.inputs.androidKeystorePath;
@@ -73,6 +74,7 @@ public class BitriseTools
     {
         public string androidSdkPath;
         public string androidJdkPath;
+        public string androidNdkPath;
         public string buildOutput;
         public string androidKeystorePath;
         public string androidKeystoreAlias;
@@ -91,6 +93,8 @@ public class BitriseTools
                     androidSdkPath = cmdArgs[i + 1];
                 if (cmdArgs[i].Equals("-androidJdkPath"))
                     androidJdkPath = cmdArgs[i + 1];
+                if (cmdArgs[i].Equals("-androidNdkPath"))
+                    androidNdkPath = cmdArgs[i + 1];
                 if (cmdArgs[i].Equals("-buildOutput"))
                     buildOutput = cmdArgs[i + 1];
                 if (cmdArgs[i].Equals("-androidKeystorePath"))
