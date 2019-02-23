@@ -44,7 +44,20 @@ namespace GoogleARCoreInternal
             //Instance = new ARCoreProjectSettings();
         }
 
-        public static ARCoreProjectSettings Instance => new ARCoreProjectSettings();
+        private static ARCoreProjectSettings _instance;
+        
+        public static ARCoreProjectSettings Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new ARCoreProjectSettings();
+                }
+
+                return _instance;
+            }
+        }
 
         public void Load()
         {
