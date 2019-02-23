@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CloudPet.Commons;
+using CloudPet.Network;
 using UnityEngine;
 using UdonLib.Commons;
 using UniRx;
@@ -9,7 +11,7 @@ namespace CloudPet.Pet
     /// <summary>
     /// ペットのロジック
     /// </summary>
-    public class PetPresenter : InitializableMono
+    public class PetPresenter : CloudObject
     {
 
         [SerializeField]
@@ -43,5 +45,25 @@ namespace CloudPet.Pet
 
             return instance;
         }
+
+        public void PlayMotion(PetState state)
+        {
+            if (!IsMine)
+            {
+                return;
+            }
+
+            _photonView.RPC(RPCDefine.PetRPC.GetRPCMethod(RPCDefine.PetRPC.RPCEnum.PlayMotion), PhotonTargets.All, state);
+        }
+
+        #region RPC Method
+
+        [PunRPC]
+        public void RPCPlayMotion(PetState state)
+        {
+            _model.SetState(state);
+        }
+
+        #endregion
     }
 }
