@@ -41,19 +41,10 @@ namespace GoogleARCoreInternal
 
         static ARCoreProjectSettings()
         {
-            if (Application.isEditor)
-            {
-                Instance = new ARCoreProjectSettings();
-                Instance.Load();
-            }
-            else
-            {
-                Instance = null;
-                Debug.LogError("Cannot access ARCoreProjectSettings outside of Unity Editor.");
-            }
+            //Instance = new ARCoreProjectSettings();
         }
 
-        public static ARCoreProjectSettings Instance { get; private set; }
+        public static ARCoreProjectSettings Instance => new ARCoreProjectSettings();
 
         public void Load()
         {
