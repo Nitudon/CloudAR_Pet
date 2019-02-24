@@ -139,6 +139,7 @@ public class BitriseTools
         log.Print(" -buildPlatform: " + inputs.buildPlatform.ToString());
         log.Print(" -androidSdkPath: " + inputs.androidSdkPath);
         log.Print(" -androidJdkPath: " + inputs.androidJdkPath);
+        log.Print(" -androidNdkPath: " + inputs.androidNdkPath);
         log.Print(" -androidKeystorePath: " + inputs.androidKeystorePath);
         log.Print(" -androidKeystoreAlias: " + (string.IsNullOrEmpty(inputs.androidKeystoreAlias) ? "" : "***"));
         log.Print(" -androidKeystorePassword: " + (string.IsNullOrEmpty(inputs.androidKeystorePassword) ? "" : "***"));
