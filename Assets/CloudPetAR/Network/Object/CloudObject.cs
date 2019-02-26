@@ -52,6 +52,11 @@ namespace CloudPet.Network
             OtherTranslate(new CloudTransformInfo(transform.position, transform.forward));
         }
 
+        private void OnDestroy()
+        {
+            _cloudTranslateDisposable?.Dispose();
+        }
+
         #region RPC Methods
         [PunRPC]
         public void RPCTranslate(CloudTransformInfo info)
