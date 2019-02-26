@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cc2ea84804f7b4aa15c532d41ef1bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _photonView: {fileID: 0}
   _planeDetectionGesture: {fileID: 1788646832}
-  _cloudAnchorSystem: {fileID: 62908035}
   _petRoot: {fileID: 1343029794}
   _breederUIView: {fileID: 4637564}
 --- !u!1 &28110767
@@ -483,7 +483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f2228321ef8294e84526e50ef55d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIController: {fileID: 370638273}
   ARCoreRoot: {fileID: 258007173}
 --- !u!1 &103654087
 GameObject:
@@ -3016,6 +3015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _detectionMarker: {fileID: 0}
+  _detectionPointsMesh: {fileID: 0}
 --- !u!114 &1788646832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3773,6 +3773,8 @@ GameObject:
   - component: {fileID: 2096848114}
   - component: {fileID: 2096848113}
   - component: {fileID: 2096848112}
+  - component: {fileID: 2096848117}
+  - component: {fileID: 2096848116}
   m_Layer: 0
   m_Name: Point Cloud
   m_TagString: Untagged
@@ -3851,6 +3853,34 @@ Transform:
   m_Father: {fileID: 258007173}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2096848116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096848111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022888872f905534280875c98251e326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionMarker: {fileID: 0}
+  _detectionPointsMesh: {fileID: 2096848114}
+--- !u!114 &2096848117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096848111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278330b2917e484459304a1e4d264290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 2096848116}
+  _detectionGesture: {fileID: 1788646832}
 --- !u!1001 &4807376687584219419
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -39,4 +39,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - RPCTranslate
   - RPCPetActivate
+  - RPCPlayMotion
   DisableAutoOpenWizard: 1

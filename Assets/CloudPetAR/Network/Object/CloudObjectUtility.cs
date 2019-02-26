@@ -8,7 +8,8 @@ namespace CloudPet.Network
             where TObject : CloudObject
         {
             TObject instance = PhotonNetwork.Instantiate(prefabPath, info.Position, Quaternion.LookRotation(info.Forward), 0) as TObject;
-            instance.MineTranslate(info);
+            instance.OtherTranslate(info);
+            return instance;
         }
     }
 }

@@ -12,29 +12,40 @@ namespace CloudPet.AR
         private GameObject _detectionMarker;
 
         [SerializeField]
-        private Mesh _detectionPointsMesh;
+        private MeshFilter _detectionPointsMesh;
 
         public void SetMarkerEnable(bool enable)
         {
             _detectionMarker.SetActive(enable);
         }
 
-        public void DrawPoints(int count, Vector3[] points)
+        public void DrawPoints(int count)
         {
+            Vector3[] points = new Vector3[count];
+            for (int i = 0; i < count; i++)
+            {
+                points[i] = Frame.PointCloud.GetPointAsStruct(i);
+            }
+
             int[] indices = new int[count];
             for (int i = 0; i < count; i++)
             {
                 indices[i] = i;
             }
 
-            _detectionPointsMesh.Clear();
-            _detectionPointsMesh.vertices = points;
-            _detectionPointsMesh.SetIndices(indices, MeshTopology.Points, 0);
+            _detectionPointsMesh.mesh.Clear();
+            _detectionPointsMesh.mesh.vertices = points;
+            _detectionPointsMesh.mesh.SetIndices(indices, MeshTopology.Points, 0);
         }
 
-        public void MarkPoint()
+        public void ClearPoints()
         {
+            _detectionPointsMesh.mesh.Clear();
+        }
 
+        public void MarkPoint(Vector3 position)
+        {
+            _detectionMarker.transform.position = position;
         }
     }
 }
