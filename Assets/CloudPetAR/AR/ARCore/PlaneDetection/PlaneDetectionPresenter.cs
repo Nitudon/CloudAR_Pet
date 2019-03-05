@@ -44,8 +44,7 @@ namespace CloudPet.AR
             _detectionGesture
                 .ManualTouchTrackingDetectedPose
                 .Where(detect => detect.Item1)
-                .Select(detect => detect.Item2.Pose.position)
-                .Subscribe(_view.MarkPoint)
+                .Subscribe(detect =>_view.MarkPoint(detect.Item1, detect.Item2.Pose.position))
                 .AddTo(gameObject);
 
             _detectionGesture

@@ -3014,7 +3014,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022888872f905534280875c98251e326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _detectionMarker: {fileID: 0}
   _detectionPointsMesh: {fileID: 0}
 --- !u!114 &1788646832
 MonoBehaviour:
@@ -3865,7 +3864,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022888872f905534280875c98251e326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _detectionMarker: {fileID: 0}
   _detectionPointsMesh: {fileID: 2096848114}
 --- !u!114 &2096848117
 MonoBehaviour:

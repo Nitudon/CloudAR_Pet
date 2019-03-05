@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using CloudPet.Commons;
 using GoogleARCore;
 using UnityEngine;
 using UdonLib.Commons;
@@ -8,11 +10,11 @@ namespace CloudPet.AR
 {
     public class PlaneDetectionView : UdonBehaviour
     {
-        [SerializeField]
-        private GameObject _detectionMarker;
 
         [SerializeField]
         private MeshFilter _detectionPointsMesh;
+
+        private DetectionMarkerView _detectionMarker;
 
         public void SetMarkerEnable(bool enable)
         {
@@ -43,8 +45,19 @@ namespace CloudPet.AR
             _detectionPointsMesh.mesh.Clear();
         }
 
-        public void MarkPoint(Vector3 position)
+        public void MarkPoint(bool hit, Vector3 position)
         {
+            if (!hit)
+            {
+                _detectionMarker.SetActive(false);
+                return;
+            }
+
+            _detectionMarker.SetActive(true);
+            if (_detectionMarker == null)
+            {
+                _detectionMarker = Instantiate(Resources.Load<DetectionMarkerView>(ResourceDefine.DETECTION_MARKER_PATH));
+            }
             _detectionMarker.transform.position = position;
         }
     }
