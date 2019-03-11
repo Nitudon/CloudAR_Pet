@@ -97,5 +97,39 @@
                 return RPCMethods[(int)type];
             }
         }
+
+        /// <summary>
+        /// システム周りのRPC
+        /// </summary>
+        public static class SystemRPC
+        {
+            /// <summary>
+            /// ペットの同期メソッド
+            /// </summary>
+            public enum RPCEnum
+            {
+                // ネットワーク周りのイベント通知
+                PublishNetworkEvent,
+                // 部屋の中でのイベント通知
+                PublishRoomEvent
+            }
+
+            /// <summary>
+            /// システムの同期メソッド名リスト
+            /// </summary>
+            public static readonly string[] RPCMethods =
+            {
+                "RPCPublishNetworkEvent",
+                "RPCPublishRoomEvent",
+            };
+
+            /// <summary>
+            /// システムの同期メソッド名を返す
+            /// </summary>
+            public static string GetRPCMethod(RPCEnum type)
+            {
+                return RPCMethods[(int)type];
+            }
+        }
     }
 }
